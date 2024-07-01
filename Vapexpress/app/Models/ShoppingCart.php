@@ -9,6 +9,8 @@ class ShoppingCart extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['user_id', 'quantity', 'total_price'];
+
     public function products()
     {
         return $this->belongsToMany(Product::class)->withPivot('quantity', 'total_price');
