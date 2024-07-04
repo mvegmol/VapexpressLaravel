@@ -5,25 +5,25 @@
     <div class="container mx-auto px-4">
         <div class="flex flex-wrap text-left lg:text-left">
             <div class="w-full lg:w-6/12 px-4">
-                <h4 class="text-3xl font-semibold text-blueGray-700">Let's keep in touch!</h4>
-                <h5 class="text-lg mt-0 mb-2 text-blueGray-600">
+                <h4 class="text-3xl font-semibold text-text_principal ">Let's keep in touch!</h4>
+                <h5 class="text-lg mt-0 mb-2 text-text_principal ">
                     Find us on any of these platforms, we respond within 1-2 business days.
                 </h5>
                 <div class="mt-6 lg:mb-0 mb-6">
                     <button
-                        class="bg-white text-lightBlue-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+                        class="bg-white text-text_principal shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
                         type="button">
                         <i class="fab fa-twitter"></i></button>
                     <button
-                        class="bg-white text-lightBlue-600 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+                        class="bg-white text-text_principal shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
                         type="button">
                         <i class="fab fa-facebook-square"></i></button>
                     <button
-                        class="bg-white text-pink-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+                        class="bg-white text-text_principal  shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
                         type="button">
                         <i class="fab fa-instagram"></i></button>
                     <button
-                        class="bg-white text-red-600 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+                        class="bg-white text-text_principal  shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
                         type="button">
                         <i class="fab fa-youtube"></i></button>
                 </div>

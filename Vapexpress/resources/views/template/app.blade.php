@@ -5,16 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>ToysRusUpo</title>
-    {{-- Añadir el favicon importante --}}
-    {{-- <link rel="icon" type="image/x-icon" href=""> --}}
+    <title>Vapexpress</title>
+    {{-- Favicon  --}}
+    <link rel="icon" type="image/x-icon" href="{{ asset('/img/favicon.ico') }}">
     @vite('resources/css/app.css', 'resources/css/app.scss')
 </head>
 
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col bg-primary text-text_principal">
 
     <header>
-        @include('partials.navbar')
+        @include('template.partials.header')
+        @include('template.partials.navbar')
     </header>
 
     <main class="flex-grow pt-24">
@@ -22,7 +23,7 @@
     </main>
 
     <footer>
-        @include('partials.footer')
+        @include('template.partials.footer')
     </footer>
 </body>
 
