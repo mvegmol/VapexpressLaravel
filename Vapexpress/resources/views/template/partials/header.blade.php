@@ -57,7 +57,8 @@
 
 
             {{-- icono de usuario --}}
-            <a href="#" class="text-center text-gray-600 hover:text-navbar transition relative">
+            <a href="@guest {{ route('register') }} @else {{ route('login') }} @endguest"
+                class="text-center text-gray-600 hover:text-navbar transition relative ">
                 <div class="text-2xl">
                     <i class="far fa-user text-navbar"></i>
                 </div>
@@ -66,11 +67,35 @@
                         Cuenta
                     </div>
                 @else
-                    <div class="text-xs leading-3">
+                    <div class="text-xs leading-3 ">
                         {{ Auth::user()->name }}
                     </div>
+
                 @endguest
             </a>
+
+
+
+            {{-- icono de logout --}}
+            @guest
+            @else
+                <a href="#" class="text-center text-gray-600 hover:text-navbar transition relative">
+                    <div class="text-2xl">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </div>
+
+                    <div class="text-xs leading-3">
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit">Cerrar Sesión</button>
+                    </div>
+                </a>
+            @endguest
+
+            @csrf
+
+
+
         </div>
     </div>
 </header>

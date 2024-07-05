@@ -11,14 +11,14 @@
     @vite('resources/css/app.css', 'resources/css/app.scss')
 </head>
 
-<body class="min-h-screen flex flex-col bg-primary text-text_principal">
+<body class="min-h-screen flex flex-col  text-text_principal ">
 
     <header>
         @include('template.partials.header')
         @include('template.partials.navbar')
     </header>
 
-    <main class="flex-grow pt-24">
+    <main class="flex-grow pt-24 px-8">
         @yield('content')
     </main>
 

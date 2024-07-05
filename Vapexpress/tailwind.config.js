@@ -27,6 +27,12 @@ export default {
       }
     },
   },
+  variants: {
+    extend: {
+      display: ['group-hover'],
+      visibility: ['group-hover'],
+    }
+  },
   plugins: [],
 }
 
