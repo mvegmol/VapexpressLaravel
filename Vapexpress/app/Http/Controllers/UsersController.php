@@ -93,9 +93,11 @@ class UsersController extends Controller
             $user->name = $request->name;
             $user->save();
             DB::commit();
-            return redirect()->route('welcome')->with('success', 'Tu perfil ha sido actualizado');
+
+            return redirect()->route('user.profile')->with('success', 'Tu perfil ha sido actualizado');
         } catch (\Exception $e) {
-            return redirect('user.profile')->with('error', 'Error al actualizar el usuario.');
+            dd($e);
+            return redirect()->route('user.profile')->with('error', 'Error al actualizar el usuario.');
         }
     }
 

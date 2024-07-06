@@ -15,7 +15,7 @@ use App\Http\Controllers\UsersController;
 
 Route::get('/', function () {
     return view('index');
-})->name('welcome');
+});
 Route::get('/home', function () {
     return view('auth.dashboard');
 })->middleware(['auth', 'verified']);
@@ -25,7 +25,7 @@ Route::get('/home', function () {
 Route::get('/profile', [UsersController::class, 'profile'])->name('user.profile');
 Route::get('/user/edit/{id}', [UsersController::class, 'edit'])->name('user.edit');
 Route::put('/user/{id}', [UsersController::class, 'update'])->name('user.update');
-Route::view('/profile/password', 'client.password')->name('user.edit_password');
+Route::view('/profile/password', 'auth.password')->name('user.edit_password');
 // Address URL
 
 //Categories URL

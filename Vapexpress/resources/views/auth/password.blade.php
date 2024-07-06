@@ -7,7 +7,7 @@
                 @if (session('status') == 'password-updated')
                     <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4"
                         role="alert">
-                        {{ __('Password updated successfully') }}
+                        {{ __('Contraseña actualizada correctamente') }}
                     </div>
                 @endif
                 <div class="bg-white shadow-md rounded-lg">
@@ -21,8 +21,8 @@
                             @method('PUT')
 
                             <div class="mb-4">
-                                <label for="current_password"
-                                    class="block text-gray-700 text-sm font-bold mb-2">{{ __('Current Password') }}</label>
+                                <label for="current_password" class="block text-gray-700 text-sm font-bold mb-2">Contraseña
+                                    actual</label>
                                 <div>
                                     <input id="current_password" type="password"
                                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('current_password', 'updatePassword') border-red-500 @enderror"
@@ -37,8 +37,8 @@
                             </div>
 
                             <div class="mb-4">
-                                <label for="password"
-                                    class="block text-gray-700 text-sm font-bold mb-2">{{ __('Password') }}</label>
+                                <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Nueva
+                                    contraseña</label>
                                 <div>
                                     <input id="password" type="password"
                                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('password', 'updatePassword') border-red-500 @enderror"
@@ -53,8 +53,8 @@
                             </div>
 
                             <div class="mb-4">
-                                <label for="password-confirm"
-                                    class="block text-gray-700 text-sm font-bold mb-2">{{ __('Confirm Password') }}</label>
+                                <label for="password-confirm" class="block text-gray-700 text-sm font-bold mb-2">Repite la
+                                    contraseña</label>
                                 <div>
                                     <input id="password-confirm" type="password"
                                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -65,7 +65,7 @@
                             <div class="flex items-center justify-center">
                                 <button type="submit"
                                     class="bg-primary text-white hover:bg-tertiary font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                                    {{ __('Save') }}
+                                    {{ __('Actualizar Contraseña') }}
                                 </button>
                             </div>
                         </form>
