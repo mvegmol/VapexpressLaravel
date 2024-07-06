@@ -18,7 +18,7 @@
         @include('template.partials.navbar')
     </header>
 
-    <main class="flex-grow pt-24 px-8">
+    <main class="flex-grow pt-12 px-8">
         @yield('content')
     </main>
 

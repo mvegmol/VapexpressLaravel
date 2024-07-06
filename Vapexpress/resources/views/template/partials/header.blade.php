@@ -57,7 +57,7 @@
 
 
             {{-- icono de usuario --}}
-            <a href="@guest {{ route('register') }} @else {{ route('login') }} @endguest"
+            <a href="@guest {{ route('register') }} @else {{ route('user.profile') }} @endguest"
                 class="text-center text-gray-600 hover:text-navbar transition relative ">
                 <div class="text-2xl">
                     <i class="far fa-user text-navbar"></i>
