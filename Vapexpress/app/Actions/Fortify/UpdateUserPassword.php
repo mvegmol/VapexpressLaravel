@@ -32,6 +32,6 @@ class UpdateUserPassword implements UpdatesUserPasswords
             'password' => Hash::make($input['password']),
         ])->save();
 
-        return redirect()->route('user.profile'); // Reemplaza 'dashboard' con el nombre de la ruta que desees
+        return redirect()->route('/profile');
     }
 }
