@@ -16,11 +16,15 @@ class UsersController extends Controller
     {
 
         try {
-            DB::beginTransaction();
-            $user_name = Auth::user()->name;
-            $user_id = Auth::user()->id;
-            DB::commit();
-            return view('client.profile', compact('user_name', 'user_id'));
+            if (Auth::check()) {
+                DB::beginTransaction();
+                $user_name = Auth::user()->name;
+                $user_id = Auth::user()->id;
+                DB::commit();
+                return view('client.profile', compact('user_name', 'user_id'));
+            } else {
+                return view('auth.verify-email');
+            }
         } catch (\Exception $e) {
             DB::rollback();
             throw $e;

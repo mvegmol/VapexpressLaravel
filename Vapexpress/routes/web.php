@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\AddressesController;
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,13 +18,19 @@ use App\Http\Controllers\AddressesController;
 Route::get('/', function () {
     return view('index');
 });
+
 Route::get('/home', function () {
-    return view('auth.dashboard');
+
+    if (Auth::check()) {
+        return view('index');
+    } else {
+        return view('auth.dashboard');
+    }
 })->middleware(['auth', 'verified']);
 
 
 // User URL
-Route::get('/profile', [UsersController::class, 'profile'])->name('user.profile');
+Route::get('/profile', [UsersController::class, 'profile'])->name('user.profile')->middleware(['auth', 'verified']);;
 Route::get('/user/edit/{id}', [UsersController::class, 'edit'])->name('user.edit');
 Route::put('/user/{id}', [UsersController::class, 'update'])->name('user.update');
 Route::view('/profile/password', 'auth.password')->name('user.edit_password');
