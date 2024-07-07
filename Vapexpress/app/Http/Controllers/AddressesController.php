@@ -129,15 +129,18 @@ class AddressesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Address $address)
     {
         try {
+
             DB::beginTransaction();
 
+            $address->delete();
             DB::commit();
+            return redirect()->route('addresses.index')->with('success', 'Dirección eliminada correctamente.');
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->with('error', 'Failed to fetch addresses.');
+            return back()->with('error', 'Error al eliminar las dirección: ', $address->direction);
         }
     }
 }

@@ -33,7 +33,7 @@
                     <div class="mt-4 flex space-x-4">
                         <a href="{{ route('addresses.edit', $address->id) }}"
                             class="text-indigo-600 hover:underline">Modificar</a>
-                        <form action="{{ route('addresses.destroy', $address->id) }}" method="POST">
+                        <form action="{{ route('addresses.destroy', $address) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="text-red-600 hover:underline">Eliminar</button>
