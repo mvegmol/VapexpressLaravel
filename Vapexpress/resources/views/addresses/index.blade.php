@@ -6,7 +6,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
             {{-- Añadir dirección --}}
-            <a href=""
+            <a href="{{ route('addresses.create') }}"
                 class="bg-white shadow-md rounded-md p-6 flex flex-col items-center justify-center hover:bg-gray-100 transition ease-in-out duration-150">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-500 mb-2" viewBox="0 0 20 20"
                     fill="currentColor">
@@ -27,7 +27,8 @@
                         <h2 class="text-xl font-semibold mb-2">{{ $address->full_name }}</h2>
                         <p class="text-gray-600">{{ $address->direction }}, {{ $address->city }}, {{ $address->province }}
                             {{ $address->zip_code }}</p>
-                        <p class="text-gray-600">{{ $address->contact_phone }}</p>
+                        <p class="text-gray-600">España</p>
+                        <p class="text-gray-600">Número de teléfono: {{ $address->contact_phone }}</p>
                     </div>
                     <div class="mt-4 flex space-x-4">
                         <a href="{{ route('addresses.edit', $address->id) }}"
