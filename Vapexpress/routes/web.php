@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\AddressesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,7 +28,9 @@ Route::get('/user/edit/{id}', [UsersController::class, 'edit'])->name('user.edit
 Route::put('/user/{id}', [UsersController::class, 'update'])->name('user.update');
 Route::view('/profile/password', 'auth.password')->name('user.edit_password');
 // Address URL
-
+Route::middleware(['auth'])->group(function () {
+    Route::resource('/addresses', AddressesController::class);
+});
 //Categories URL
 
 //Orders URL
