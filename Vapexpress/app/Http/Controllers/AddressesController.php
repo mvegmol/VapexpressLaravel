@@ -21,13 +21,14 @@ class AddressesController extends Controller
         try {
             if (Auth::user()->rol != 'admin') {
                 DB::beginTransaction();
-                $addresses  = Auth::user()->address;
+                $addresses = Auth::user()->address()->orderByDesc('is_default')->get();
                 DB::commit();
                 return view('addresses.index', compact('addresses'));
             } else {
                 return view('client.profile')->with('error', 'El administrador no puede tener direcciones');
             }
         } catch (\Exception $e) {
+            dd($e);
             DB::rollBack();
             return back()->with('error', 'Failed to fetch addresses.');
         }
