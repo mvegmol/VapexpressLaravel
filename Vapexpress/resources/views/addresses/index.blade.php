@@ -21,8 +21,8 @@
             {{-- Mostrar direcciones disponibles --}}
 
             @foreach ($addresses as $address)
-                <div
-                    class="bg-white shadow-md rounded-md p-6 flex flex-col justify-between hover:bg-gray-100 transition ease-in-out duration-150">
+                <div class="bg-white shadow-md rounded-md p-6 flex flex-col justify-between hover:bg-gray-100 transition ease-in-out duration-150"
+                    @if ($address->is_default) style="border-top: 4px solid #932F6D;"  {{-- Estilo para dirección predeterminada --}} @endif>
                     <div>
                         <h2 class="text-xl font-semibold mb-2">{{ $address->full_name }}</h2>
                         <p class="text-gray-600">{{ $address->direction }}, {{ $address->city }}, {{ $address->province }}
@@ -31,13 +31,24 @@
                         <p class="text-gray-600">Número de teléfono: {{ $address->contact_phone }}</p>
                     </div>
                     <div class="mt-4 flex space-x-4">
-                        <a href="{{ route('addresses.edit', $address->id) }}"
-                            class="text-indigo-600 hover:underline">Modificar</a>
+                        @if ($address->is_default == false)
+                            <form action="{{ route('addresses.change', $address) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <button type="submit" class="text-navbar hover:underline">Establecer
+                                    Predeterminada</button>
+                            </form>
+                        @else
+                            <a href="{{ route('addresses.edit', $address->id) }}"
+                                class="text-indigo-600 hover:underline">Modificar</a>
+                        @endif
+
                         <form action="{{ route('addresses.destroy', $address) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="text-red-600 hover:underline">Eliminar</button>
                         </form>
+
                     </div>
                 </div>
             @endforeach

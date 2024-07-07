@@ -72,6 +72,11 @@ class AddressesController extends Controller
             $address->city = $validatedData['city'];
             $address->province = $validatedData['province'];
             $address->zip_code = $validatedData['zip_code'];
+
+            if (Auth::user()->address->count() === 0) {
+                $address->is_default = true;
+            }
+
             $address->save();
             DB::commit();
             return redirect()->route('addresses.index')->with('success', 'Dirección creada correctamente.');
@@ -156,13 +161,38 @@ class AddressesController extends Controller
         try {
 
             DB::beginTransaction();
+            $wasDefault = $address->is_default;
 
             $address->delete();
+            if ($wasDefault && Auth::user()->address->count() > 0) {
+                $newDefaultAddress = Auth::user()->address->first();
+                $newDefaultAddress->is_default = true;
+                $newDefaultAddress->save();
+            }
+
             DB::commit();
             return redirect()->route('addresses.index')->with('success', 'Dirección eliminada correctamente.');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'Error al eliminar las dirección: ', $address->direction);
+        }
+    }
+
+    public function changeDefault(Request $request, Address $address)
+    {
+        try {
+
+            DB::beginTransaction();
+            $address->user->address()->update(['is_default' => false]);
+            // Marcar la dirección especificada como predeterminada
+            $address->is_default = true;
+            $address->save();
+            DB::commit();
+            return redirect()->route('addresses.index')->with('success', 'Dirección predeterminada cambiada correctamente.');
+        } catch (\Exception $e) {
+            dd($e);
+            DB::rollBack();
+            return back()->with('error', 'No se ha podido cambiar la dirección correctamente.', $address->direction);
         }
     }
 }

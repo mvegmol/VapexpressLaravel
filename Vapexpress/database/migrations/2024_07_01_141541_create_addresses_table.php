@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('city');
             $table->string('full_name');
             $table->string('contact_phone');
+            $table->boolean('is_default')->default(false);
         });
     }
 

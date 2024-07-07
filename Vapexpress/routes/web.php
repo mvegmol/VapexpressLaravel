@@ -30,6 +30,7 @@ Route::view('/profile/password', 'auth.password')->name('user.edit_password');
 // Address URL
 Route::middleware(['auth'])->group(function () {
     Route::resource('/addresses', AddressesController::class);
+    Route::put('/addresses/changue/{address}', [AddressesController::class, 'changeDefault'])->name('addresses.change');
 });
 //Categories URL
 
