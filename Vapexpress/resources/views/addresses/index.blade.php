@@ -3,7 +3,7 @@
 @section('content')
     <div class="container mx-auto px-4">
         @include('template.partials.alert')
-        <h1 class="text-3xl font-bold my-4">Mis direcciones</h1>
+        <h1 class="text-3xl font-bold my-4 ">Mis direcciones</h1>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
             {{-- Añadir dirección --}}
