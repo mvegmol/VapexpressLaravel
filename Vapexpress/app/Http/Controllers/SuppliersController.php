@@ -110,8 +110,17 @@ class SuppliersController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Supplier $supplier)
     {
-        //
+        try {
+
+            DB::beginTransaction();
+            $supplier->delete();
+            DB::commit();
+            return redirect()->route('suppliers.index')->with('success', 'Proveedor eliminado correctamente.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Error al eliminar el proveedor: ', $supplier->name);
+        }
     }
 }

@@ -70,12 +70,16 @@
                             <td class="px-4 py-2 border-b border-gray-300 whitespace-nowrap text-sm text-gray-900">
                                 {{ $supplier->email }}</td>
                             <td class="px-4 py-2 border-b border-gray-300 whitespace-nowrap text-center text-sm">
-                                <button class="text-blue-600 hover:text-blue-900">
+                                <a class="text-blue-600 hover:text-blue-900 text-xl">
                                     <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="text-red-600 hover:text-red-900 ml-2">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
+                                </a>
+                                <form action="{{ route('suppliers.destroy', $supplier) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="text-red-600 hover:text-red-900 ml-2 text-xl">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

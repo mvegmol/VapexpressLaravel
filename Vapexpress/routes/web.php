@@ -72,4 +72,5 @@ Route::middleware(['admin'])->group(function () {
     Route::get("/suppliers", [SuppliersController::class, "index"])->name("suppliers.index");
     Route::get("/suppliers/create", [SuppliersController::class, "create"])->name("suppliers.create");
     Route::post("/suppliers", [SuppliersController::class, "store"])->name("suppliers.store");
+    Route::delete("/suppliers/{supplier}", [SuppliersController::class, "destroy"])->name("suppliers.destroy");
 });
