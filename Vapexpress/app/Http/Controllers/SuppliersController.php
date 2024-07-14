@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Supplier;
+use Illuminate\Support\Facades\DB;
 
 class SuppliersController extends Controller
 {
@@ -43,6 +44,7 @@ class SuppliersController extends Controller
     public function create()
     {
         //
+        return view("admin.suppliers.create");
     }
 
     /**
@@ -50,7 +52,35 @@ class SuppliersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validación de datos
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255|unique:suppliers,name',
+            'contact_name' => 'required|string|max:255',
+            'phone' => 'required|string|max:9',
+            'email' => 'required|email|max:255',
+        ]);
+
+        try {
+            DB::beginTransaction();
+
+            $supplier = new Supplier();
+            $supplier->name = $validatedData['name'];
+            $supplier->contact_name = $validatedData['contact_name'];
+            $supplier->phone = $validatedData['phone'];
+            $supplier->email = $validatedData['email'];
+            $supplier->save();
+
+            DB::commit();
+
+            return redirect()->route('suppliers.index')
+                ->with('success', 'El proveedor ha sido creado correctamente.');
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return redirect()->route('suppliers.create')
+                ->with('error', 'Ocurrió un error al crear el proveedor: ' . $e->getMessage())
+                ->withInput();
+        }
     }
 
     /**

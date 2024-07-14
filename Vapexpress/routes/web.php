@@ -70,4 +70,6 @@ Route::middleware(['admin'])->group(function () {
     // Hay que tener en cuenta que lo voy a meter en la carpeta admin
     // para dentro una carpeta llamada proveedores
     Route::get("/suppliers", [SuppliersController::class, "index"])->name("suppliers.index");
+    Route::get("/suppliers/create", [SuppliersController::class, "create"])->name("suppliers.create");
+    Route::post("/suppliers", [SuppliersController::class, "store"])->name("suppliers.store");
 });

@@ -9,7 +9,13 @@
             <input type="text" name="search" value="{{ request('search') }}" placeholder="Buscar proveedores..."
                 class="border border-gray-300 p-2 rounded" />
             <button type="submit" class="bg-navbar text-white p-2 rounded">Buscar</button>
+
         </form>
+        <div class="mb-4">
+            <a href="{{ route('suppliers.create') }}" class="bg-navbar text-white p-2 rounded flex items-center w-max">
+                <i class="fas fa-plus mr-1"></i> Crear Proveedor
+            </a>
+        </div>
 
         <div class="overflow-x-auto border rounded-md border-gray-350 ">
             <table class="min-w-full bg-white border border-gray-350 rounded-md">
