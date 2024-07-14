@@ -3,6 +3,7 @@
 @section('content')
     @if (Auth::check() && Auth::user()->isAdmin())
         <div class="container mx-auto px-4">
+            {{-- alertar y mensajes para para el usuario --}}
             @include('template.partials.alert')
             <h1 class="text-3xl font-bold my-4">Bienvenido {{ $user_name }}</h1>
 
@@ -49,7 +50,7 @@
                     </div>
                 </a>
                 {{-- Proveedores --}}
-                <a href="">
+                <a href="{{ route('suppliers.index') }}">
                     <div class="bg-white shadow-md rounded-md py-8 px-6 flex items-center hover:bg-gray-100">
                         <img src="{{ asset('img/icons/gestion.png') }}" alt="Mis pedidos" class="w-16 h-16 mr-6">
                         <div>

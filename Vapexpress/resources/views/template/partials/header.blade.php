@@ -26,7 +26,7 @@
             </a>
 
             {{-- Proveedores --}}
-            <a href="" class="text-center  hover:text-navbar transition relative">
+            <a href="{{ route('suppliers.index') }}" class="text-center  hover:text-navbar transition relative">
                 <div class="text-xl leading-3">
                     Proveedores
                 </div>
