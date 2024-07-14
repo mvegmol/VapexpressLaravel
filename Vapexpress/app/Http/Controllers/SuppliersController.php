@@ -96,15 +96,47 @@ class SuppliersController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        try {
+            $supplier = Supplier::findOrFail($id);
+            return view('admin.suppliers.edit', compact('supplier'));
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error al editar el proveedor: ', $e->getMessage());
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Supplier $supplier)
     {
-        //
+        // Validación de datos
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255|unique:suppliers,name,' . $supplier->id,
+            'contact_name' => 'required|string|max:255',
+            'phone' => 'required|string|max:9',
+            'email' => 'required|email|max:255',
+        ]);
+
+        try {
+            DB::beginTransaction();
+
+            $supplier->name = $validatedData['name'];
+            $supplier->contact_name = $validatedData['contact_name'];
+            $supplier->phone = $validatedData['phone'];
+            $supplier->email = $validatedData['email'];
+            $supplier->save();
+
+            DB::commit();
+
+            return redirect()->route('suppliers.index')
+                ->with('success', 'El proveedor ha sido actualizado correctamente.');
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return redirect()->route('suppliers.edit', $supplier->id)
+                ->with('error', 'Ocurrió un error al actualizar el proveedor: ' . $e->getMessage())
+                ->withInput();
+        }
     }
 
     /**

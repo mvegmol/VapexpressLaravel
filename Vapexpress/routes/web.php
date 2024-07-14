@@ -73,4 +73,6 @@ Route::middleware(['admin'])->group(function () {
     Route::get("/suppliers/create", [SuppliersController::class, "create"])->name("suppliers.create");
     Route::post("/suppliers", [SuppliersController::class, "store"])->name("suppliers.store");
     Route::delete("/suppliers/{supplier}", [SuppliersController::class, "destroy"])->name("suppliers.destroy");
+    Route::get("/suppliers/{supplier}/edit", [SuppliersController::class, "edit"])->name("suppliers.edit");
+    Route::put("/suppliers/{supplier}", [SuppliersController::class, "update"])->name("suppliers.update");
 });
