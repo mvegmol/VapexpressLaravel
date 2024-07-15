@@ -5,6 +5,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\AddressesController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SuppliersController;
+use App\Http\Controllers\CategoriesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,14 +50,15 @@ Route::middleware(["auth"])->group(function () {
     ])->name("addresses.change");
 });
 //Categories URL
-/*Route::group(function () {
-    if (Auth::check() && Auth::user()->role == "admin") {
-        // Add todas las rutas de categorias para el admin
-        // Hay que tener en cuenta que lo voy a meter en la carpeta admin
-        // para dentro una carpeta llamada categories
-        //Route::resource("/categories", CategoriesController::class);
-    }
-});*/
+Route::middleware(['admin'])->group(function () {
+
+    Route::get("/categories", [CategoriesController::class, "index"])->name("categories.index");
+    Route::get("/categories/create", [CategoriesController::class, "create"])->name("categories.create");
+    Route::post("/categories", [CategoriesController::class, "store"])->name("categories.store");
+    Route::delete("/categories/{category}", [CategoriesController::class, "destroy"])->name("categories.destroy");
+    Route::get("/categories/{category}/edit", [CategoriesController::class, "edit"])->name("categories.edit");
+    Route::put("/categories/{category}", [CategoriesController::class, "update"])->name("categories.update");
+});
 //Orders URL
 
 //Products URL
