@@ -12,7 +12,7 @@
             </a>
 
             {{-- Productos --}}
-            <a href="" class="text-center  hover:text-navbar transition relative">
+            <a href="{{ route('products.index') }}" class="text-center  hover:text-navbar transition relative">
                 <div class="text-xl leading-3">
                     Productos
                 </div>

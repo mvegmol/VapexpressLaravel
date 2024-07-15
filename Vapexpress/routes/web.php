@@ -6,6 +6,7 @@ use App\Http\Controllers\AddressesController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\ProductsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -62,6 +63,16 @@ Route::middleware(['admin'])->group(function () {
 //Orders URL
 
 //Products URL
+
+//Products URL (Admin)
+Route::middleware(['admin'])->group(function () {
+    Route::get("/products", [ProductsController::class, "index"])->name("products.index");
+    Route::get("/products/create", [ProductsController::class, "create"])->name("products.create");
+    Route::post("/products", [ProductsController::class, "store"])->name("products.store");
+    Route::delete("/products/{product}", [ProductsController::class, "destroy"])->name("products.destroy");
+    Route::get("/products/{product}/edit", [ProductsController::class, "edit"])->name("products.edit");
+    Route::put("/products/{product}", [ProductsController::class, "update"])->name("products.update");
+});
 
 //Shopping Cart URL
 
