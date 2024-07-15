@@ -1,8 +1,8 @@
 @extends('template.app')
 
 @section('content')
+    @include('template.partials.alert')
     <div class="container mx-auto p-3">
-        @include('template.partials.alert')
         <div class="max-w-lg mx-auto bg-white shadow-lg rounded-lg ">
             <div class="bg-navbar text-white p-4 flex justify-between items-center rounded-lg">
                 <h1 class="text-3xl font-bold">Crear Proveedor</h1>

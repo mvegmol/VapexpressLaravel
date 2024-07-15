@@ -19,7 +19,7 @@
             </a>
 
             {{-- Categorías --}}
-            <a href="" class="text-center  hover:text-navbar transition relative">
+            <a href="{{ route('categories.index') }}" class="text-center  hover:text-navbar transition relative">
                 <div class="text-xl leading-3">
                     Categorías
                 </div>
