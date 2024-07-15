@@ -40,7 +40,7 @@
                     </div>
                 </a>
                 {{-- categorias --}}
-                <a href="">
+                <a href="{{ route('categories.index') }}">
                     <div class="bg-white shadow-md rounded-md py-8 px-6 flex items-center hover:bg-gray-100">
                         <img src="{{ asset('img/icons/categorias.png') }}" alt="Mis pedidos" class="w-16 h-16 mr-6">
                         <div>
@@ -61,15 +61,18 @@
                 </a>
 
                 <!-- Logout -->
-                <a href="" class="">
-                    <div class="bg-white shadow-md rounded-md py-8 px-6 flex items-center hover:bg-gray-100">
-                        <img src="{{ asset('img/icons/cerrar-sesion.png') }}" alt="Logout" class="w-16 h-16 mr-6">
-                        <div>
-                            <h2 class="text-xl font-semibold mb-2">Logout</h2>
-                            <p class="text-gray-600">Cierra la sesión.</p>
-                        </div>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+                <!-- Logout -->
+                <button onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                    class="bg-white shadow-md rounded-md py-8 px-6 flex items-center hover:bg-gray-100">
+                    <img src="{{ asset('img/icons/cerrar-sesion.png') }}" alt="Logout" class="w-16 h-16 mr-6">
+                    <div>
+                        <h2 class="text-xl font-semibold mb-2">Logout</h2>
+                        <p class="text-gray-600">Cierra la sesión.</p>
                     </div>
-                </a>
+                </button>
 
             </div>
         </div>
@@ -131,17 +134,18 @@
                         </div>
                     </div>
                 </a>
-
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
                 <!-- Logout -->
-                <a href="" class="">
-                    <div class="bg-white shadow-md rounded-md py-8 px-6 flex items-center hover:bg-gray-100">
-                        <img src="{{ asset('img/icons/cerrar-sesion.png') }}" alt="Logout" class="w-16 h-16 mr-6">
-                        <div>
-                            <h2 class="text-xl font-semibold mb-2">Logout</h2>
-                            <p class="text-gray-600">Cierra la sesión.</p>
-                        </div>
+                <button onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                    class="bg-white shadow-md rounded-md py-8 px-6 flex items-center hover:bg-gray-100">
+                    <img src="{{ asset('img/icons/cerrar-sesion.png') }}" alt="Logout" class="w-16 h-16 mr-6">
+                    <div>
+                        <h2 class="text-xl font-semibold mb-2">Logout</h2>
+                        <p class="text-gray-600">Cierra la sesión.</p>
                     </div>
-                </a>
+                </button>
 
             </div>
         </div>
