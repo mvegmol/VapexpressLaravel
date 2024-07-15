@@ -26,7 +26,7 @@ class CategoryProductSeeder extends Seeder
             $categoriesToAssign = $faker->randomElements($categoryIds, $faker->numberBetween(1, 3));
 
             foreach ($categoriesToAssign as $categoryId) {
-                DB::table('category_products')->insert([
+                DB::table('category_product')->insert([
                     'product_id' => $productId,
                     'category_id' => $categoryId,
                     'created_at' => now(),
