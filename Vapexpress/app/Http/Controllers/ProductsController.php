@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Supplier;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProductsController extends Controller
 {
@@ -137,8 +138,30 @@ class ProductsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Product $product)
     {
-        //
+
+
+        try {
+            DB::beginTransaction();
+            // Eliminar la imagen asociada si existe
+            if ($product->url_image) {
+                Storage::delete('img/productos/' . $product->url_image);
+            }
+            // Eliminar las relaciones con las categorías
+            $product->categories()->detach();
+            // Eliminar el producto
+            $product->delete();
+
+            DB::commit();
+
+            // Redirigir a la página de índice de productos con un mensaje de éxito
+            return redirect()->route('products.index')->with('success', 'Producto eliminado exitosamente.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            // Redirigir a la página de índice de productos con un mensaje de error
+            return redirect()->route('products.index')->with('error', 'Hubo un error al eliminar el producto. Por favor, inténtelo de nuevo.');
+        }
     }
 }
