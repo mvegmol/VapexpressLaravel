@@ -30,7 +30,7 @@
                     </div>
                 </a>
                 {{-- Productos --}}
-                <a href="">
+                <a href="{{ route('products.index') }}">
                     <div class="bg-white shadow-md rounded-md py-8 px-6 flex items-center hover:bg-gray-100">
                         <img src="{{ asset('img/icons/liquido.png') }}" alt="Mis pedidos" class="w-16 h-16 mr-6">
                         <div>

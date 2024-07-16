@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Supplier;
+use Illuminate\Support\Facades\DB;
 
 class ProductsController extends Controller
 {
@@ -50,7 +52,10 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        //
+        // Obtener todas las categorías para poder asignarle una categoria a un producto y los proveedores 
+        $categories = Category::all();
+        $suppliers = Supplier::all();
+        return view("admin.Products.create", compact("categories", 'suppliers'));
     }
 
     /**
@@ -58,9 +63,53 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        // Validar los datos de entrada
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
+            'url_image' => 'nullable|image|mimes:png|max:2048',
+            'supplier_id' => 'required|exists:suppliers,id',
+            'categories' => 'array',
+            'categories.*' => 'exists:categories,id',
+        ]);
 
+        DB::beginTransaction();
+
+        try {
+            // Crear el producto
+            $product = new Product();
+            $product->name = $request->input('name');
+            $product->description = $request->input('description');
+            $product->price = $request->input('price');
+            $product->stock = $request->input('stock');
+
+            // Manejar la carga de la imagen
+            if ($request->hasFile('url_image')) {
+                $image = $request->file('url_image');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('img/productos'), $imageName);
+                $product->url_image = $imageName; // Guardar solo el nombre del archivo
+            }
+
+            $product->supplier_id = $request->input('supplier_id');
+            $product->save();
+
+            // Asignar las categorías al producto
+            $product->categories()->sync($request->input('categories', []));
+
+            DB::commit();
+
+            // Redirigir a la página de índice de productos con un mensaje de éxito
+            return redirect()->route('products.index')->with('success', 'Producto creado exitosamente.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            // Redirigir a la página de creación de productos con un mensaje de error
+            return redirect()->route('products.create')->with('error', 'Hubo un error al crear el producto. Por favor, inténtelo de nuevo.');
+        }
+    }
     /**
      * Display the specified resource.
      */
