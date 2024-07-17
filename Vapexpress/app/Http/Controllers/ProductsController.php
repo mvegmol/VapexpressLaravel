@@ -122,17 +122,69 @@ class ProductsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Product $product)
     {
-        //
+        $categories = Category::all();
+        $suppliers = Supplier::all();
+
+        return view("admin.Products.edit", compact("product", "categories", 'suppliers'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        // Validar los datos de entrada
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
+            'url_image' => 'nullable|image|mimes:png|max:2048',
+            'supplier_id' => 'required|exists:suppliers,id',
+            'categories' => 'required|string',
+        ]);
+
+        try {
+            DB::beginTransaction();
+
+            // Actualizar los datos del producto
+            $product->name = $request->input('name');
+            $product->description = $request->input('description');
+            $product->price = $request->input('price');
+            $product->stock = $request->input('stock');
+            $product->supplier_id = $request->input('supplier_id');
+
+            // Manejar la carga de la imagen si se ha subido una nueva imagen
+            if ($request->hasFile('url_image')) {
+                // Eliminar la imagen anterior si existe
+                if ($product->url_image) {
+                    Storage::delete('img/productos/' . $product->url_image);
+                }
+
+                $image = $request->file('url_image');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('img/productos'), $imageName);
+                $product->url_image = $imageName; // Guardar solo el nombre del archivo
+            }
+
+            // Guardar los cambios
+            $product->save();
+
+            // Asignar las categorías al producto
+            $categories = explode(',', $request->input('categories'));
+            $product->categories()->sync($categories);
+
+            DB::commit();
+
+            // Redirigir a la página de índice de productos con un mensaje de éxito
+            return redirect()->route('products.index')->with('success', 'Producto actualizado exitosamente.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            // Redirigir a la página de edición de productos con un mensaje de error
+            return redirect()->route('products.edit', $product)->with('error', 'Hubo un error al actualizar el producto. Por favor, inténtelo de nuevo.')->withInput();
+        }
     }
 
     /**

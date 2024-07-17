@@ -82,8 +82,9 @@
                             </td>
                             <td class="px-4 py-2 border-b border-gray-300 whitespace-nowrap text-center text-sm">
                                 <div class="inline-flex items-center">
+
                                     <a href="{{ route('products.edit', $product->id) }}"
-                                        class="text-blue-600 hover:text-blue-900 text-xl">
+                                        class="text-blue-600 hover:text-blue-900 text-xl ml-2">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <form action="{{ route('products.destroy', $product) }}" method="POST">
