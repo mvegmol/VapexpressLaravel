@@ -82,7 +82,10 @@
                             </td>
                             <td class="px-4 py-2 border-b border-gray-300 whitespace-nowrap text-center text-sm">
                                 <div class="inline-flex items-center">
-
+                                    <a href="{{ route('products.show', $product) }} "
+                                        class="text-green-600 hover:text-green-900 ml-2 text-xl">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
                                     <a href="{{ route('products.edit', $product->id) }}"
                                         class="text-blue-600 hover:text-blue-900 text-xl ml-2">
                                         <i class="fas fa-edit"></i>

@@ -72,6 +72,7 @@ Route::middleware(['admin'])->group(function () {
     Route::delete("/products/{product}", [ProductsController::class, "destroy"])->name("products.destroy");
     Route::get("/products/{product}/edit", [ProductsController::class, "edit"])->name("products.edit");
     Route::put("/products/{product}", [ProductsController::class, "update"])->name("products.update");
+    Route::get("/products/{product}/show", [ProductsController::class, "show"])->name("products.show");
 });
 
 //Shopping Cart URL

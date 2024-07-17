@@ -114,9 +114,11 @@ class ProductsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Product  $product)
     {
-        //
+        $categories = Category::all();
+        $suppliers = Supplier::all();
+        return view("admin.Products.show", compact("product", "categories", 'suppliers'));
     }
 
     /**
