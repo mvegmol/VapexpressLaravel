@@ -36,9 +36,7 @@
                         </th>
                         <th
                             class="w-2/12 px-4 py-2 border-b border-gray-350 text-left text-sm font-medium text-gray-700 uppercase tracking-wider">
-                            <a
-                                href="{{ route('categories.index', ['sort' => 'description', 'direction' => request('direction', 'asc') === 'asc' ? 'desc' : 'asc', 'search' => request('search')]) }}">Descripción<i
-                                    class="fas fa-sort"></i></a>
+                            <a>Descripción</a>
                         </th>
                         <th
                             class="w-2/12 px-4 py-2 border-b border-gray-350 text-center text-sm font-medium text-gray-700 uppercase tracking-wider">
