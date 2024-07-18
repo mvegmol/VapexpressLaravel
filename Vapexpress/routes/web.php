@@ -59,6 +59,9 @@ Route::middleware(['admin'])->group(function () {
     Route::delete("/categories/{category}", [CategoriesController::class, "destroy"])->name("categories.destroy");
     Route::get("/categories/{category}/edit", [CategoriesController::class, "edit"])->name("categories.edit");
     Route::put("/categories/{category}", [CategoriesController::class, "update"])->name("categories.update");
+    Route::get('categories/{category}/products', [CategoriesController::class, 'products'])->name('categories.products');
+    Route::post('categories/{category}/products', [CategoriesController::class, 'storeProduct'])->name('categories.products.store');
+    Route::delete('categories/{category}/products/{product}', [CategoriesController::class, 'destroyProduct'])->name('categories.products.destroy');
 });
 //Orders URL
 

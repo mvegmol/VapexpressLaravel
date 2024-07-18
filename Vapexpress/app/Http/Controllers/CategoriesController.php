@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Illuminate\Support\Facades\DB;
+use App\Models\Product;
 
 class CategoriesController extends Controller
 {
@@ -140,5 +141,45 @@ class CategoriesController extends Controller
             return redirect()->route('categories.index')
                 ->with('error', 'Ocurrió un error al eliminar la categoría: ' . $e->getMessage());
         }
+    }
+
+    /**
+     * Show the products of the specified category.
+     */
+    public function products(Category $category)
+    {
+        // Obtiene los productos que ya están en la categoría
+        $existingProductIds = $category->products()->pluck('product_id')->toArray();
+
+        // Filtra los productos que no están en la categoría
+        $all_products = Product::whereNotIn('id', $existingProductIds)->get();
+
+        // Obtiene los productos paginados de la categoría
+        $products = $category->products()->paginate(12);
+        return view('admin.Categories.products', compact('category', 'products', 'all_products'));
+    }
+
+
+    /**
+     * Store a newly created product in the specified category.
+     */
+    public function storeProduct(Request $request, Category $category)
+    {
+        $category->products()->attach($request->input('product_id'));
+
+        return redirect()->route('categories.products', $category->id)
+            ->with('success', 'Producto añadido a la categoría correctamente');
+    }
+
+
+    /**
+     * Remove the specified product from the specified category.
+     */
+    public function destroyProduct(Category $category, Product $product)
+    {
+        $category->products()->detach($product->id);
+
+        return redirect()->route('categories.products', $category->id)
+            ->with('success', 'Producto eliminado de la categoría correctamente');
     }
 }
