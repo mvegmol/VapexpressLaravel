@@ -14,7 +14,7 @@ class Order extends Model
         "total_price",
         "address",
         "status",
-        "orderDate",
+        "order_date",
     ];
 
     public function products()

@@ -12,5 +12,5 @@ class OrderProduct extends Model
     protected $fillable = ["order_id", "product_id", "quantity", "price"];
 
     #Referenciamos a la tabla intermedia oder products
-    protected $table = "order_products";
+    protected $table = "order_product";
 }
