@@ -24,7 +24,7 @@ class ProductsSeeder extends Seeder
                 'description' => $faker->paragraph,
                 'price' => $faker->randomFloat(2, 1, 1000),
                 'stock' => $faker->numberBetween(1, 100),
-                'url_image' => $faker->imageUrl(),
+                'url_image' => ($i % 8 + 1) . '.jpg', // Asignar una imagen de 1.jpg a 8.jpg
                 'supplier_id' => $faker->randomElement($supplierIds),
                 'created_at' => now(),
                 'updated_at' => now(),
