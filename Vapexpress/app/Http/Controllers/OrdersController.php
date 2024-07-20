@@ -54,7 +54,10 @@ class OrdersController extends Controller
     public function show_admin(Order $order)
     {
 
-        return view("orders.index_user", compact("order"));
+        // Cargar la relación con los productos y el usuario
+        $order->load('products', 'user');
+
+        return view("admin.orders.show", compact("order"));
     }
 
     /**

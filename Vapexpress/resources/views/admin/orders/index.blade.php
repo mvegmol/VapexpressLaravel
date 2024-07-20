@@ -88,7 +88,7 @@
                             </td>
                             <td class="px-4 py-2 border-b  border-gray-300 whitespace-nowrap text-center text-sm">
                                 <div class="inline-flex items-center">
-                                    <a href="{{ route('orders.admin.show', $order->id) }}"
+                                    <a href="{{ route('orders.admin.show', $order) }}"
                                         class="text-blue-600 hover:text-blue-900 text-xl"><i class="fas fa-eye"></i></a>
                                 </div>
                             </td>
