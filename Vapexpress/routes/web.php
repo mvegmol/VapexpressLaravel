@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\OrdersController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -63,7 +64,14 @@ Route::middleware(['admin'])->group(function () {
     Route::post('categories/{category}/products', [CategoriesController::class, 'storeProduct'])->name('categories.products.store');
     Route::delete('categories/{category}/products/{product}', [CategoriesController::class, 'destroyProduct'])->name('categories.products.destroy');
 });
-//Orders URL
+//Orders URL Admin  
+Route::middleware(['admin'])->group(function () {
+    Route::get("/orders", [OrdersController::class, "index_admin"])->name("orders.admin.index");
+    Route::get("/orders/{order}/show", [OrdersController::class, "show_admin"])->name("orders.admin.show");
+    Route::put("/orders/{order}/status", [OrdersController::class, "updateStatus"])->name("orders.updateStatus");
+});
+
+//Orders URL User
 
 //Products URL
 

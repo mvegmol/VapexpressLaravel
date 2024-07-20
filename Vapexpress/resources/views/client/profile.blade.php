@@ -20,7 +20,7 @@
                 </a>
 
                 <!-- Pedidos -->
-                <a href="">
+                <a href="{{ route('orders.admin.index') }}">
                     <div class="bg-white shadow-md rounded-md py-8 px-6 flex items-center hover:bg-gray-100">
                         <img src="{{ asset('img/icons/pedido.png') }}" alt="Mis pedidos" class="w-16 h-16 mr-6">
                         <div>

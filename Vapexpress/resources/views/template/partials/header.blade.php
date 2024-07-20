@@ -33,7 +33,7 @@
             </a>
 
             {{-- Pedidos --}}
-            <a href="" class="text-center hover:text-navbar transition relative">
+            <a href="{{ route('orders.admin.index') }}" class="text-center hover:text-navbar transition relative">
                 <div class="text-xl leading-3">
                     Pedidos
                 </div>
