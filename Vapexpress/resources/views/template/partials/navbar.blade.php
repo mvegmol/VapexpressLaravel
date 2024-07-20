@@ -4,9 +4,9 @@
 
 {{-- barra de navegación --}}
 
-<nav class="px-8 bg-navbar text-text_navbar">
-    @if (Auth::check() && Auth::user()->isAdmin())
-        {{-- <div class="container flex py-3 text-center">
+
+@if (Auth::check() && Auth::user()->isAdmin())
+    {{-- <div class="container flex py-3 text-center">
 
             <div class="flex items-center justify-between flex-grow pl-12">
                 <div class="flex items-center space-x-6 capitalize">
@@ -18,7 +18,8 @@
                 </div>
             </div>
         </div> --}}
-    @else
+@else
+    <nav class="px-8 bg-navbar text-text_navbar">
         <div class="container flex">
 
             <div class="px-8 py-4 bg-navbar flex items-center cursor-pointer relative group">
@@ -57,9 +58,10 @@
 
             </div>
         </div>
-    @endif
+    </nav>
+@endif
 
-</nav>
+
 
 
 {{-- <nav class="bg-navbar text-text_navbar p-4">

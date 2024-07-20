@@ -4,7 +4,7 @@
 {{-- header admin --}}
 @if (Auth::check() && Auth::user()->isAdmin())
     <header class="py-4 px-6 shadow-sm bg-navbar text-text_navbar">
-        <div class="container flex items-center justify-between">
+        <div class="container flex items-center justify-between py-2">
 
             {{-- Logo --}}
             <a href="#">
@@ -12,28 +12,28 @@
             </a>
 
             {{-- Productos --}}
-            <a href="{{ route('products.index') }}" class="text-center  hover:text-navbar transition relative">
+            <a href="{{ route('products.index') }}" class="text-center  hover:text-text_a-dark transition relative">
                 <div class="text-xl leading-3">
                     Productos
                 </div>
             </a>
 
             {{-- Categorías --}}
-            <a href="{{ route('categories.index') }}" class="text-center  hover:text-navbar transition relative">
+            <a href="{{ route('categories.index') }}" class="text-center  hover:text-text_a-dark transition relative">
                 <div class="text-xl leading-3">
                     Categorías
                 </div>
             </a>
 
             {{-- Proveedores --}}
-            <a href="{{ route('suppliers.index') }}" class="text-center  hover:text-navbar transition relative">
+            <a href="{{ route('suppliers.index') }}" class="text-center  hover:text-text_a-dark transition relative">
                 <div class="text-xl leading-3">
                     Proveedores
                 </div>
             </a>
 
             {{-- Pedidos --}}
-            <a href="{{ route('orders.admin.index') }}" class="text-center hover:text-navbar transition relative">
+            <a href="{{ route('orders.admin.index') }}" class="text-center hover:text-text_a-dark transition relative">
                 <div class="text-xl leading-3">
                     Pedidos
                 </div>
@@ -41,7 +41,7 @@
 
             {{-- Cuenta  --}}
 
-            <a href="{{ route('user.profile') }}" class="text-center hover:text-navbar transition relative">
+            <a href="{{ route('user.profile') }}" class="text-center hover:text-text_a-dark transition relative">
                 <div class="text-xl leading-3">
                     Cuenta
                 </div>
