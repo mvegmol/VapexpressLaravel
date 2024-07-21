@@ -17,7 +17,7 @@
         @include('template.partials.header')
         @include('template.partials.navbar')
     </header>
-
+    @yield('carousel')
     <main class="flex-grow pt-12 px-8">
         @yield('content')
     </main>
