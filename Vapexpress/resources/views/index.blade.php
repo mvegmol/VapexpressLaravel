@@ -18,7 +18,9 @@
                             <img src="{{ asset('img/productos/' . $product->url_image) }}"
                                 alt="Imagen de {{ $product->name }}" class="w-full h-full object-contain">
                             <button
-                                class="btn-heart absolute top-2 left-2 text-gray-500 hover:text-primary transition duration-300 ease-in-out transform hover:scale-125 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+                                class="text-2xl btn-heart absolute top-2 left-2 text-gray-500 
+                                hover:text-red-700 transition duration-300 ease-in-out transform hover:scale-125 focus:outline-none focus:ring-2
+                                 focus:ring-primary focus:ring-offset-2">
                                 <i class="far fa-heart"></i>
                                 <span class="sr-only">Agregar a favoritos</span>
                             </button>
@@ -54,7 +56,9 @@
                             <img src="{{ asset('img/productos/' . $product->url_image) }}"
                                 alt="Imagen de {{ $product->name }}" class="w-full h-full object-contain">
                             <button
-                                class="btn-heart absolute top-2 left-2 text-gray-500 hover:text-primary transition duration-300 ease-in-out transform hover:scale-125 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+                                class="btn-heart absolute top-2 left-2 text-gray-500 text-2xl
+                                hover:text-red-700 transition duration-300 ease-in-out 
+                                transform hover:scale-125 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
                                 <i class="far fa-heart"></i>
                                 <span class="sr-only">Agregar a favoritos</span>
                             </button>
