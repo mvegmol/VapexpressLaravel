@@ -3,7 +3,7 @@
 </head>
 {{-- header admin --}}
 @if (Auth::check() && Auth::user()->isAdmin())
-    <header class="py-4 px-6 shadow-sm bg-navbar text-text_navbar">
+    <header id="header" class="py-4 px-6 shadow-sm bg-navbar text-text_navbar">
         <div class="container flex items-center justify-between py-2">
 
             {{-- Logo --}}
@@ -52,7 +52,7 @@
     </header>
 @else
     {{-- header client --}}
-    <header class="py-4 px-8 shodow-sm bg-white">
+    <header id="header" class="py-4 px-8 shodow-sm bg-white">
         <div class="container flex items-center justify-between">
 
 

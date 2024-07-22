@@ -19,7 +19,7 @@
             </div>
         </div> --}}
 @else
-    <nav class="px-8 bg-navbar text-text_navbar">
+    <nav id="navbar" class="px-8 bg-navbar text-text_navbar">
         <div class="container flex">
 
             <div class="px-8 py-4 bg-navbar flex items-center cursor-pointer relative group">
