@@ -40,7 +40,7 @@
             <!-- Botón para ver más productos -->
             <div class="flex justify-center mt-8">
                 <a href="{{ route('products.index') }}"
-                    class="block text-center w-full bg-gradient-to-r from-navbar to-primary text-text_navbar py-3 text-lg font-bold rounded-lg hover:from-navbar hover:to-primary transition duration-300">Ver
+                    class="block text-center w-full bg-gradient-to-r from-navbar to-primary text-text_navbar py-3 text-lg font-bold rounded-lg shadow-lg hover:from-primary hover:to-navbar hover:shadow-xl transition duration-300 transform hover:scale-105">Ver
                     más productos</a>
             </div>
         </section>
@@ -78,27 +78,64 @@
             <!-- Botón para ver más productos -->
             <div class="flex justify-center mt-8">
                 <a href="{{ route('products.index') }}"
-                    class="block text-center w-full bg-gradient-to-r from-navbar to-primary text-text_navbar py-3 text-lg font-bold rounded-lg hover:from-navbar hover:to-primary transition duration-300">Ver
+                    class="block text-center w-full bg-gradient-to-r from-navbar to-primary text-text_navbar py-3 text-lg font-bold rounded-lg shadow-lg hover:from-primary hover:to-navbar hover:shadow-xl transition duration-300 transform hover:scale-105">Ver
                     más novedades</a>
             </div>
         </section>
 
         <!-- Sección de categorías destacadas -->
-        <section class="featured-categories">
+        <section class="featured-categories mb-12">
             <h2 class="text-2xl font-bold mb-6 text-text_principal">Categorías Destacadas</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
-                @foreach ($categories as $category)
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- First large image -->
+                <div class="col-span-1 lg:col-span-3">
                     <div
                         class="bg-white shadow-md rounded-lg overflow-hidden transform transition duration-500 hover:scale-105">
-                        <div class="p-6 text-center">
-                            <h3 class="text-lg font-bold mb-2 text-text_principal">{{ $category->name }}</h3>
-                            {{-- <a href="{{ route('category.show', $category->id) }}"
-                                class="bg-navbar text-text_a px-3 py-2 rounded mt-4 inline-block hover:bg-navbar focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">Ver
-                                Categoría</a> --}}
+                        <div class="relative  flex items-center justify-center bg-gradient-to-r ">
+                            <img src="{{ asset('img/categorias/petizius.jpg') }}" alt="Imagen de de vaper sabor petizui"
+                                class="w-full h-full object-cover">
                         </div>
                     </div>
-                @endforeach
+                </div>
+
+                <!-- Two smaller images in the center -->
+                <div class="col-span-1 lg:col-span-3 flex">
+                    <div
+                        class="w-1/2 bg-white shadow-md rounded-lg overflow-hidden transform transition duration-500 hover:scale-105 mr-4">
+                        <div class="relative  flex items-center justify-center bg-gradient-to-r ">
+                            <img src="{{ asset('img/categorias/recargables.webp') }}" alt="Imagen de vapers recargables"
+                                class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    <div
+                        class="w-1/2 bg-white shadow-md rounded-lg overflow-hidden transform transition duration-500 hover:scale-105 ml-4">
+                        <div class="relative  flex items-center justify-center bg-gradient-to-r  ">
+                            <img src="{{ asset('img/categorias/desechable.webp') }}" alt="Imagen de vapers desechables"
+                                class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Second large image -->
+                <div class="col-span-1 lg:col-span-3 flex">
+                    <div
+                        class="w-1/2 bg-white shadow-md rounded-lg overflow-hidden transform transition duration-500 hover:scale-105 mr-4">
+                        <div class="relative  flex items-center justify-center bg-gradient-to-r ">
+                            <img src="{{ asset('img/categorias/e-liquidos.webp') }}" alt="Imagen de E-Liquidos"
+                                class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    <div
+                        class="w-1/2 bg-white shadow-md rounded-lg overflow-hidden transform transition duration-500 hover:scale-105 ml-4">
+                        <div class="relative  flex items-center justify-center bg-gradient-to-r  ">
+                            <img src="{{ asset('img/categorias/kit.webp') }}" alt="Imagen de Kit de vapeo"
+                                class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
+
+
     </div>
 @endsection
