@@ -45,7 +45,8 @@
                     <a href="" class="transition text-text_a hover:text-text_a-dark">Home</a>
                     <a href="" class="transition text-text_a hover:text-text_a-dark">Shop</a>
                     <a href="" class="transition text-text_a hover:text-text_a-dark">Sobre Nosotros</a>
-                    <a href="" class="transition text-text_a hover:text-text_a-dark">Contactanos</a>
+                    <a href="{{ route('contact') }}"
+                        class="transition text-text_a hover:text-text_a-dark">Contactanos</a>
 
                 </div>
                 @guest

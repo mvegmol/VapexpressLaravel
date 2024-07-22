@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class UsersController extends Controller
 {
@@ -111,5 +112,28 @@ class UsersController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function contact_send(Request $request)
+    {
+        // Validar los datos
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|min:9|max:9',
+            'message' => 'required|string|max:2000',
+        ]);
+
+        // Obtener la dirección de correo del archivo .env
+        $toEmail = env('MAIL_TO_ADDRESS', 'miguelvegamolina2404@gmail.com'); // Asegúrate de definir MAIL_TO_ADDRESS en tu .env
+
+        // Enviar el correo
+        Mail::send('emails.contact', ['data' => $validatedData], function ($message) use ($validatedData, $toEmail) {
+            $message->to($toEmail, 'Your Name')
+                ->subject('Nuevo mensaje de contacto');
+        });
+
+        // Redirigir con un mensaje de éxito
+        return redirect()->route('home')->with('success', 'Tu mensaje ha sido enviado correctamente.');
     }
 }

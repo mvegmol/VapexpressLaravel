@@ -33,8 +33,12 @@ Route::get("/home", function () {
     }
 })->middleware(["auth", "verified"]);
 
+//Routes contact and about
 
-
+Route::get("/contact", function () {
+    return view("contact");
+})->name("contact");
+Route::POST("/sendEmail", [UsersController::class, 'contact_send'])->name("sendemail");
 
 // User URL
 Route::get("/profile", [UsersController::class, "profile"])
