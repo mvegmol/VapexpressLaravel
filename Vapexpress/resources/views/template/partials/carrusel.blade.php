@@ -77,6 +77,17 @@
     #carousel-2:checked~.control-2~.carousel-indicators li:nth-child(2) .carousel-bullet,
     #carousel-3:checked~.control-3~.carousel-indicators li:nth-child(3) .carousel-bullet {
         color: #932F6D;
-
     }
 </style>
+<script>
+    let currentIndex = 0;
+    const radioButtons = document.querySelectorAll('.carousel-open');
+
+    function changeSlide() {
+        radioButtons[currentIndex].checked = false;
+        currentIndex = (currentIndex + 1) % radioButtons.length;
+        radioButtons[currentIndex].checked = true;
+    }
+
+    setInterval(changeSlide, 3000); // Cambia de imagen cada 3 segundos
+</script>
