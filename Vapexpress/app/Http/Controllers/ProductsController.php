@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\OrderProduct;
 use App\Models\Supplier;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -217,5 +218,18 @@ class ProductsController extends Controller
             // Redirigir a la página de índice de productos con un mensaje de error
             return redirect()->route('products.index')->with('error', 'Hubo un error al eliminar el producto. Por favor, inténtelo de nuevo.');
         }
+    }
+
+
+    public function home()
+    {
+        #Productos más novedosos
+        $new_products = Product::orderBy('created_at', 'desc')->take(10)->get();
+        #Productos más vendidos
+        $best_selling_products = Product::bestSellings()->take(10)->get();
+        #Categorías más populares
+        $categories = Category::inRandomOrder()->take(6)->get();
+
+        return view('index', compact('new_products', 'best_selling_products', 'categories'));
     }
 }

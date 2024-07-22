@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Product extends Model
 {
@@ -34,5 +35,29 @@ class Product extends Model
     public function supplier()
     {
         return $this->belongsTo(Supplier::class);
+    }
+    public static function bestSellings()
+    {
+        return static::select(
+            'products.id',
+            'products.name',
+            'products.description',
+            'products.price',
+            'products.stock',
+            'products.url_image',
+            DB::raw('COUNT(orders.id) as total_orders')
+        )
+            ->leftJoin('order_product', 'products.id', '=', 'order_product.product_id')
+            ->leftJoin('orders', 'order_product.order_id', '=', 'orders.id')
+            ->groupBy(
+                'products.id',
+                'products.name',
+                'products.description',
+                'products.price',
+                'products.stock',
+                'products.url_image',
+            )
+            ->orderByDesc('total_orders')
+            ->orderBy('products.name', 'asc');
     }
 }

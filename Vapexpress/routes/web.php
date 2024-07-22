@@ -19,13 +19,11 @@ use App\Http\Controllers\OrdersController;
 |
 */
 
-Route::get("/", function () {
-    return view("index");
-});
+Route::get("/", [ProductsController::class, "home"]);
 
 Route::get("/home", function () {
     if (Auth::check()) {
-        return view("index");
+        redirect()->route('/');
     } else {
         return view("auth.dashboard");
     }
@@ -74,6 +72,9 @@ Route::middleware(['admin'])->group(function () {
 //Orders URL User
 
 //Products URL
+Route::get("/products", [ProductsController::class, "index"])->name("products.index");
+Route::get("/products/{product}", [ProductsController::class, "show"])->name("products.show");
+
 
 //Products URL (Admin)
 Route::middleware(['admin'])->group(function () {
