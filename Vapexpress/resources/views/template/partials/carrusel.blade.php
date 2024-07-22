@@ -30,16 +30,13 @@
             class="next control-3 w-10 h-10 mr-2 md:mr-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-navbar leading-tight text-center z-10 inset-y-0 right-0 my-auto">›</label>
         <ol class="carousel-indicators">
             <li class="inline-block mr-3">
-                <label for="carousel-1"
-                    class="carousel-bullet cursor-pointer block text-4xl text-white hover:bg-navbar">•</label>
+                <label for="carousel-1" class="carousel-bullet cursor-pointer block text-4xl text-white ">•</label>
             </li>
             <li class="inline-block mr-3">
-                <label for="carousel-2"
-                    class="carousel-bullet cursor-pointer block text-4xl text-white hover:bg-navbar">•</label>
+                <label for="carousel-2" class="carousel-bullet cursor-pointer block text-4xl text-white ">•</label>
             </li>
             <li class="inline-block mr-3">
-                <label for="carousel-3"
-                    class="carousel-bullet cursor-pointer block text-4xl text-white hover:bg-navbar">•</label>
+                <label for="carousel-3" class="carousel-bullet cursor-pointer block text-4xl text-white ">•</label>
             </li>
         </ol>
     </div>
