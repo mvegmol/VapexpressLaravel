@@ -19,11 +19,15 @@ use App\Http\Controllers\OrdersController;
 |
 */
 
-Route::get("/", [ProductsController::class, "home"]);
+Route::get("/", [ProductsController::class, "home"])->name("home");
 
 Route::get("/home", function () {
     if (Auth::check()) {
-        return view("index_admin");
+        if (Auth::user()->role == 'admin') {
+            return view("index_admin");
+        } else {
+            return redirect()->route('home');
+        }
     } else {
         return view("auth.dashboard");
     }
