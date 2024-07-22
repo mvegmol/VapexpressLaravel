@@ -20,7 +20,7 @@
         </form>
 
         <div class="mb-4">
-            <a href="{{ route('products.create') }}" class="bg-navbar text-white p-2 rounded flex items-center w-max">
+            <a href="{{ route('products.create.admin') }}" class="bg-navbar text-white p-2 rounded flex items-center w-max">
                 <i class="fas fa-plus mr-1"></i> Crear Producto
             </a>
         </div>

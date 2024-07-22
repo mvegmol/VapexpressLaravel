@@ -23,11 +23,14 @@ Route::get("/", [ProductsController::class, "home"]);
 
 Route::get("/home", function () {
     if (Auth::check()) {
-        redirect()->route('/');
+        return view("index_admin");
     } else {
         return view("auth.dashboard");
     }
 })->middleware(["auth", "verified"]);
+
+
+
 
 // User URL
 Route::get("/profile", [UsersController::class, "profile"])
@@ -79,7 +82,8 @@ Route::get("/products/{product}", [ProductsController::class, "show"])->name("pr
 //Products URL (Admin)
 Route::middleware(['admin'])->group(function () {
     Route::get("/products", [ProductsController::class, "index"])->name("products.index");
-    Route::get("/products/create", [ProductsController::class, "create"])->name("products.create");
+    Route::get("/products/create/admin", [ProductsController::class, "create"])->name("products.create.admin");
+
     Route::post("/products", [ProductsController::class, "store"])->name("products.store");
     Route::delete("/products/{product}", [ProductsController::class, "destroy"])->name("products.destroy");
     Route::get("/products/{product}/edit", [ProductsController::class, "edit"])->name("products.edit");

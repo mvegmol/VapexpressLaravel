@@ -57,6 +57,7 @@ class ProductsController extends Controller
         // Obtener todas las categorías para poder asignarle una categoria a un producto y los proveedores 
         $categories = Category::all();
         $suppliers = Supplier::all();
+
         return view("admin.Products.create", compact("categories", 'suppliers'));
     }
 
