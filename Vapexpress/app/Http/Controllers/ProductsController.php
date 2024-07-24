@@ -224,13 +224,16 @@ class ProductsController extends Controller
 
     public function home()
     {
-        #Productos más novedosos
+        # Productos más novedosos
         $new_products = Product::orderBy('created_at', 'desc')->take(10)->get();
-        #Productos más vendidos
+        # Productos más vendidos
         $best_selling_products = Product::bestSellings()->take(10)->get();
-        #Categorías más populares
+        # Categorías más populares
         $categories = Category::inRandomOrder()->take(6)->get();
 
-        return view('index', compact('new_products', 'best_selling_products', 'categories'));
+        # Productos favoritos si el usuario está autenticado
+        $favourite_products = auth()->check() ? auth()->user()->favouriteProducts->pluck('id')->toArray() : [];
+
+        return view('index', compact('new_products', 'best_selling_products', 'categories', 'favourite_products'));
     }
 }

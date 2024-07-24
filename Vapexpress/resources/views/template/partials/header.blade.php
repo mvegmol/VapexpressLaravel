@@ -87,7 +87,7 @@
                         Favoritos
                     </div>
                     <span
-                        class="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-navbar text-xs text-white">1</span>
+                        class="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-navbar text-xs text-white">{{ Auth::check() ? Auth::user()->favoriteQuantity() : 0 }}</span>
 
                 </a>
 

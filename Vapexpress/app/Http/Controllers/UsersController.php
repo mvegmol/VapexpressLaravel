@@ -9,6 +9,8 @@ use Illuminate\View\View;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Models\Product;
+use Illuminate\Support\Facades\URL;
 
 class UsersController extends Controller
 {
@@ -135,5 +137,40 @@ class UsersController extends Controller
 
         // Redirigir con un mensaje de éxito
         return redirect()->route('home')->with('success', 'Tu mensaje ha sido enviado correctamente.');
+    }
+
+
+    public function like_unlike(Request $request)
+    {
+        try {
+            if (!auth()->check()) {
+                return redirect()->route('login');
+            }
+
+            DB::beginTransaction();
+
+            $client = Auth::user();
+
+            $product_id = $request->input('product_id');
+
+            $product = Product::findOrFail($product_id);
+
+            $likeProduct = $client->favouriteProducts()->where('product_id', $product_id)->first();
+            //Comprobamos si like o unlike
+            if ($likeProduct == null) {
+                $client->favouriteProducts()->attach($product_id);
+            } else {
+                $client->favouriteProducts()->detach($product_id);
+            }
+            DB::commit();
+
+            //Volvemos a la url anterior ya que este metodo se llama desde distintas paginas
+            $previousUrl = URL::previous();
+
+            return redirect()->to($previousUrl);
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw $e;
+        }
     }
 }

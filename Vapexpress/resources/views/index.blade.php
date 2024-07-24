@@ -17,13 +17,21 @@
                         <div class="relative h-64 flex items-center justify-center bg-gradient-to-r ">
                             <img src="{{ asset('img/productos/' . $product->url_image) }}"
                                 alt="Imagen de {{ $product->name }}" class="w-full h-full object-contain">
-                            <button
-                                class="text-2xl btn-heart absolute top-2 left-2 text-gray-500 
-                                hover:text-red-700 transition duration-300 ease-in-out transform hover:scale-125 focus:outline-none focus:ring-2
-                                 focus:ring-primary focus:ring-offset-2">
-                                <i class="far fa-heart"></i>
-                                <span class="sr-only">Agregar a favoritos</span>
-                            </button>
+                            <form action="{{ route('user.like') }}" method="POST" class="absolute top-2 left-2">
+                                @method('POST')
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <button type="submit"
+                                    class="text-2xl btn-heart text-gray-500 hover:text-red-700 transition duration-300 ease-in-out transform hover:scale-125 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                                    @if (!auth()->check()) onclick="event.preventDefault(); window.location='{{ route('login') }}';" @endif>
+                                    @if (auth()->check() && in_array($product->id, $favourite_products))
+                                        <i class="fas fa-heart"></i>
+                                    @else
+                                        <i class="far fa-heart"></i>
+                                    @endif
+                                    <span class="sr-only">Agregar a favoritos</span>
+                                </button>
+                            </form>
                         </div>
                         <div class="border-t border-gray-200"></div>
                         <div class="p-6">
@@ -55,13 +63,21 @@
                         <div class="relative h-64 flex items-center justify-center bg-gradient-to-r ">
                             <img src="{{ asset('img/productos/' . $product->url_image) }}"
                                 alt="Imagen de {{ $product->name }}" class="w-full h-full object-contain">
-                            <button
-                                class="btn-heart absolute top-2 left-2 text-gray-500 text-2xl
-                                hover:text-red-700 transition duration-300 ease-in-out 
-                                transform hover:scale-125 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
-                                <i class="far fa-heart"></i>
-                                <span class="sr-only">Agregar a favoritos</span>
-                            </button>
+                            <form action="{{ route('user.like') }}" method="POST" class="absolute top-2 left-2">
+                                @method('POST')
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <button type="submit"
+                                    class="text-2xl btn-heart text-gray-500 hover:text-red-700 transition duration-300 ease-in-out transform hover:scale-125 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                                    @if (!auth()->check()) onclick="event.preventDefault(); window.location='{{ route('login') }}';" @endif>
+                                    @if (auth()->check() && in_array($product->id, $favourite_products))
+                                        <i class="fas fa-heart"></i>
+                                    @else
+                                        <i class="far fa-heart"></i>
+                                    @endif
+                                    <span class="sr-only">Agregar a favoritos</span>
+                                </button>
+                            </form>
                         </div>
                         <div class="border-t border-gray-200"></div>
                         <div class="p-6">

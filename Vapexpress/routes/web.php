@@ -114,3 +114,8 @@ Route::middleware(['admin'])->group(function () {
     Route::get("/suppliers/{supplier}/edit", [SuppliersController::class, "edit"])->name("suppliers.edit");
     Route::put("/suppliers/{supplier}", [SuppliersController::class, "update"])->name("suppliers.update");
 });
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/likeProduct', [UsersController::class, "like_unlike"])->name('user.like');
+});
