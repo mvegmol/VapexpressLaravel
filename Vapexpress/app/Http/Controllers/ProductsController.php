@@ -236,4 +236,30 @@ class ProductsController extends Controller
 
         return view('index', compact('new_products', 'best_selling_products', 'categories', 'favourite_products'));
     }
+
+
+    public function favourites_products()
+    {
+        try {
+            //Comprobamos si el usuario está autenticado y logado
+            if (!auth()->check()) {
+                return redirect()->route('login');
+            }
+            DB::beginTransaction();
+
+            $client = auth()->user();
+
+            $products = $client->favouriteProducts()->paginate(10);
+
+            $favourite_products = auth()->check() ? auth()->user()->favouriteProducts->pluck('id')->toArray() : [];
+
+            DB::commit();
+
+            return view('client.favourites', compact('products', 'favourite_products'));
+            
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->route('home')->with('error', 'Error al mostrar los productos favoritos.');
+        }
+    }
 }

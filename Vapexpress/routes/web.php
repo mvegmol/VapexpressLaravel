@@ -118,4 +118,5 @@ Route::middleware(['admin'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/likeProduct', [UsersController::class, "like_unlike"])->name('user.like');
+    Route::get('/user/likes', [ProductsController::class, "favourites_products"])->name('client.likes');
 });

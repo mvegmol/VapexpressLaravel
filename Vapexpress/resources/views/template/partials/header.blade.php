@@ -78,7 +78,8 @@
             <div class="flex items-center space-x-4">
 
                 {{-- icono de me gusta --}}
-                <a href="#" class="text-center text-gray-600 hover:text-navbar transition relative">
+                <a href="{{ route('client.likes') }}"
+                    class="text-center text-gray-600 hover:text-navbar transition relative">
                     <div class="text-2xl">
                         <i class="far fa-heart text-navbar"></i>
                     </div>
