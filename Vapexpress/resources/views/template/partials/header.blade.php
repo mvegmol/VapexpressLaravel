@@ -57,7 +57,7 @@
 
 
             {{-- logo --}}
-            <a href="#">
+            <a href="{{ route('home') }}">
                 <img src="{{ asset('/img/logo.png') }}" alt="Logo de Vapexpress" class="w-48">
             </a>
             {{-- barra busqueda --}}
