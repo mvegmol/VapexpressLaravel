@@ -40,7 +40,7 @@
                 @endforeach
             </div>
             <!-- Botón para ver más productos -->
-            <div class="flex justify-center mt-8">
+            <div class="flex justify-end mt-8">
                 {{ $products->appends(request()->input())->links('vendor.pagination.tailwind') }}
             </div>
         </section>
