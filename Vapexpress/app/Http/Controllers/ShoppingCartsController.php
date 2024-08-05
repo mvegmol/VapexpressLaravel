@@ -14,26 +14,26 @@ class ShoppingCartsController extends Controller
     public function showCart()
     {
         try {
-            // Si no estass logado redirige al login
+            // Si no estas logado redirige al login
             if (!Auth::check()) {
                 return redirect()->route('login');
             }
             DB::beginTransaction();
-            //Obtenemos el cliente
+            // Obtenemos el cliente
             $client = Auth::user();
-            //Obtenemos el primer carritto de la compra del cliente
+            // Obtenemos el primer carrito de la compra del cliente
             $shoppingCart = ShoppingCart::where('user_id', $client->id)->first();
 
-            //Comprobamos que el carrito de la compra no es nuelo
+            // Comprobamos que el carrito de la compra no es nulo
             if (!$shoppingCart) {
                 return back()->with('error', 'El carrito de compra no existe.');
             }
 
-            //Obtenemos los productos que contiene un carrito de la compra
-            $products = $shoppingCart->products();
+            // Obtenemos los productos que contiene un carrito de la compra con categorías
+            $products = $shoppingCart->products()->with('categories')->get();
 
-            //Comprobamos que tiene algun producto el carrito
-            if (!$products) {
+            // Comprobamos que tiene algún producto el carrito
+            if ($products->isEmpty()) {
                 return back()->with('error', 'El carrito de compra no contiene productos.');
             }
 
@@ -47,6 +47,7 @@ class ShoppingCartsController extends Controller
             return back()->with('error', 'Error al mostrar el carrito de la compra.');
         }
     }
+
 
 
 
@@ -111,6 +112,54 @@ class ShoppingCartsController extends Controller
             DB::rollBack();
             dd($e);
             return back()->with('error', 'Error al añadir el producto al carrito.');
+        }
+    }
+
+
+
+    public function updateQuantity(Request $request, $productId)
+    {
+        try {
+            if (!Auth::check()) {
+                return redirect()->route('login');
+            }
+
+            DB::beginTransaction();
+            $client = Auth::user();
+            $shoppingCart = ShoppingCart::where('user_id', $client->id)->first();
+
+            if (!$shoppingCart) {
+                return back()->with('error', 'El carrito de compra no existe.');
+            }
+
+            $product = $shoppingCart->products()->where('product_id', $productId)->first();
+            if ($product) {
+                $newQuantity = $request->quantity;
+                $difference = $newQuantity - $product->pivot->quantity;
+
+                if ($difference > 0 && $product->stock < $difference) {
+                    return back()->with('error', 'No hay stock suficiente disponible.');
+                }
+
+                $shoppingCart->products()->updateExistingPivot($productId, [
+                    'quantity' => $newQuantity,
+                    'total_price' => $newQuantity * $product->price
+                ]);
+
+                $shoppingCart->total_price += $difference * $product->price;
+                $shoppingCart->quantity += $difference;
+                $shoppingCart->save();
+
+                $product->stock -= $difference;
+                $product->save();
+            }
+
+            DB::commit();
+            return back()->with('success', 'Cantidad del producto actualizada.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e);
+            return back()->with('error', 'Error al actualizar la cantidad del producto.');
         }
     }
     /**
