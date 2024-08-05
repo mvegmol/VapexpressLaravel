@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('product_shopping_carts', function (Blueprint $table) {
+        Schema::create('product_shopping_cart', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             #id del producto
@@ -28,6 +28,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_shopping_carts');
+        Schema::table('product_shopping_cart', function (Blueprint $table) {
+            $table->dropForeign(['product_id']);
+            $table->dropForeign(['shopping_cart_id']);
+        });
+        Schema::dropIfExists('product_shopping_cart');
     }
 };

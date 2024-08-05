@@ -19,7 +19,7 @@ return new class extends Migration
             #El precio total del carrito de la compra
             $table->float('total_price')->default(0);
             #Cantidad de productos del carrito de la compra
-            $table->integer('total_products')->default(0);
+            $table->integer('quantity')->default(0);
         });
     }
 
@@ -28,6 +28,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('shopping_carts', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+        });
         Schema::dropIfExists('shopping_carts');
     }
 };

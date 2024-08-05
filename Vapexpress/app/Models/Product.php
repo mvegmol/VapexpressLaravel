@@ -29,7 +29,7 @@ class Product extends Model
 
     public function shoppingCart()
     {
-        return $this->belongsToMany(ShoppingCart::class)->withPivot('quantity', 'total_price');
+        return $this->belongsToMany(ShoppingCart::class)->using(ProductShoppingCart::class)->withPivot('quantity', 'total_price');
     }
 
     public function supplier()
