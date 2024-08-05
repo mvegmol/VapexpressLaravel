@@ -38,8 +38,16 @@
                             <h3 class="text-lg font-bold mb-2 text-text_principal">{{ $product->name }}</h3>
                             <div class="flex justify-between items-center">
                                 <p class="text-gray-700">${{ $product->price }}</p>
-                                <i
-                                    class="btn-cart fas fa-shopping-cart text-navbar cursor-pointer transition duration-300 ease-in-out transform hover:scale-125"></i>
+                                <form action="{{ route('shopping_cart.add') }}" method="POST">
+                                    @method('POST')
+                                    @csrf
+                                    {{-- Enviamos el id del producto --}}
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                    <button type="submit">
+                                        <i
+                                            class="btn-cart fas fa-shopping-cart text-navbar cursor-pointer transition duration-300 ease-in-out transform hover:scale-125"></i>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -84,8 +92,16 @@
                             <h3 class="text-lg font-bold mb-2 text-text_principal">{{ $product->name }}</h3>
                             <div class="flex justify-between items-center">
                                 <p class="text-gray-700">${{ $product->price }}</p>
-                                <i
-                                    class="btn-cart fas fa-shopping-cart text-navbar cursor-pointer transition duration-300 ease-in-out transform hover:scale-125"></i>
+                                <form action="{{ route('shopping_cart.add') }}" method="POST">
+                                    @method('POST')
+                                    @csrf
+                                    {{-- Enviamos el id del producto --}}
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                    <button type="submit">
+                                        <i
+                                            class="btn-cart fas fa-shopping-cart text-navbar cursor-pointer transition duration-300 ease-in-out transform hover:scale-125"></i>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>

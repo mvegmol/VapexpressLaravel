@@ -8,6 +8,8 @@ use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\ShoppingCartsController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -100,6 +102,15 @@ Route::middleware(['admin'])->group(function () {
 });
 
 //Shopping Cart URL
+Route::middleware(['auth'])->group(function () {
+    Route::post("/shopping-cart", [ShoppingCartsController::class, "addCart"])->name("shopping_cart.add");
+    // Route::get("/shopping-cart", [ShoppingCartsController::class, "shopping_cart"])->name("shopping_cart")
+    // Route::delete("/shopping-cart/{product}", [ShoppingCartsController::class, "remove_product"])->name("shopping_cart.remove");
+    // Route::put("/shopping-cart/{product}", [ShoppingCartsController::class, "update_product"])->name("shopping_cart.update");
+    // Route::post("/shopping-cart/checkout", [ShoppingCartsController::class, "checkout"])->name("shopping_cart.checkout");
+});
+
+
 
 //Suppliers URL
 
