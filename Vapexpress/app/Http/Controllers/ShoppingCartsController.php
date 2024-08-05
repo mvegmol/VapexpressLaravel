@@ -162,6 +162,49 @@ class ShoppingCartsController extends Controller
             return back()->with('error', 'Error al actualizar la cantidad del producto.');
         }
     }
+
+    public function destroy($productId)
+    {
+        try {
+            if (!Auth::check()) {
+                return redirect()->route('login');
+            }
+
+            DB::beginTransaction();
+            $client = Auth::user();
+            $shoppingCart = ShoppingCart::where('user_id', $client->id)->first();
+
+            if (!$shoppingCart) {
+                return back()->with('error', 'El carrito de compra no existe.');
+            }
+
+            $product = $shoppingCart->products()->where('product_id', $productId)->first();
+            if ($product) {
+                $quantity = $product->pivot->quantity;
+                $totalPrice = $product->pivot->total_price;
+
+                // Remove product from cart
+                $shoppingCart->products()->detach($productId);
+
+                // Update shopping cart totals
+                $shoppingCart->total_price -= $totalPrice;
+                $shoppingCart->quantity -= $quantity;
+                $shoppingCart->save();
+
+                // Update product stock
+                $product->stock += $quantity;
+                $product->save();
+            }
+
+            DB::commit();
+            return back()->with('success', 'Producto eliminado del carrito.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e);
+            return back()->with('error', 'Error al eliminar el producto del carrito.');
+        }
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -206,14 +249,6 @@ class ShoppingCartsController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
     {
         //
     }

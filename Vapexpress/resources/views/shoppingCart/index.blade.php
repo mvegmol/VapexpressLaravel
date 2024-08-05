@@ -37,7 +37,7 @@
                             <div class="flex bg-white shadow-md rounded-lg overflow-hidden">
                                 <img src="{{ asset('img/productos/' . $product->url_image) }}" alt="{{ $product->name }}"
                                     class="w-24 h-24 object-cover flex-none">
-                                <div class="flex flex-col justify-between p-4 leading-normal">
+                                <div class="flex flex-col justify-between p-4 leading-normal flex-grow">
                                     <div>
                                         <h3 class="text-lg font-semibold text-navbar">{{ $product->name }}</h3>
                                         <p class="text-sm text-gray-500">
@@ -49,7 +49,8 @@
                                     </div>
                                     <div class="mt-2">
                                         <p class="text-sm"><strong>Cantidad:</strong></p>
-                                        <form action="{{ route('cart.update', $product->id) }}" method="POST">
+                                        <form action="{{ route('cart.update', $product->id) }}" method="POST"
+                                            class="inline">
                                             @csrf
                                             @method('PATCH')
                                             <select name="quantity" onchange="this.form.submit()"
@@ -67,6 +68,20 @@
                                             ${{ number_format($product->pivot->total_price, 2) }}</p>
                                     </div>
                                 </div>
+                                <div class="flex items-start">
+                                    <form action="{{ route('cart.destroy', $product->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-500 hover:text-red-700 ml-4">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke="currentColor" class="w-5 h-5 mr-4 mt-4">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M3 6h18M9 6v12M15 6v12M4 6h16v14H4V6zm3-3h10v3H7V3z" />
+                                            </svg>
+                                        </button>
+                                    </form>
+                                </div>
+
                             </div>
                         @endforeach
                     </div>
