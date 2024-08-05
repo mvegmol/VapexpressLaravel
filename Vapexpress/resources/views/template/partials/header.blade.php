@@ -93,7 +93,8 @@
                 </a>
 
                 {{-- icono del carrito de la compra  --}}
-                <a href="#" class="text-center text-gray-600 hover:text-navbar transition relative">
+                <a href="{{ route('shopping_cart') }}"
+                    class="text-center text-gray-600 hover:text-navbar transition relative">
                     <div class="text-2xl">
                         <i class="fa fa-shopping-cart text-navbar"></i>
                     </div>
