@@ -107,7 +107,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get("/shopping-cart", [ShoppingCartsController::class, "showCart"])->name("shopping_cart");
     // Route::delete("/shopping-cart/{product}", [ShoppingCartsController::class, "remove_product"])->name("shopping_cart.remove");
     // Route::put("/shopping-cart/{product}", [ShoppingCartsController::class, "update_product"])->name("shopping_cart.update");
-    // Route::post("/shopping-cart/checkout", [ShoppingCartsController::class, "checkout"])->name("shopping_cart.checkout");
+    Route::get("/shopping-cart/checkout", [ShoppingCartsController::class, "checkout"])->name("shopping_cart.checkout");
     Route::patch('/cart/update/{productId}', [ShoppingCartsController::class, 'updateQuantity'])->name('cart.update');
     Route::delete('/cart/{productId}', [ShoppingCartsController::class, 'destroy'])->name('cart.destroy');
 });
@@ -132,4 +132,10 @@ Route::middleware(['admin'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::post('/likeProduct', [UsersController::class, "like_unlike"])->name('user.like');
     Route::get('/user/likes', [ProductsController::class, "favourites_products"])->name('client.likes');
+});
+
+
+//Payment URL
+Route::middleware(['auth'])->group(function () {
+    Route::post('/payment', [OrdersController::class, 'payment'])->name('payment.store');
 });

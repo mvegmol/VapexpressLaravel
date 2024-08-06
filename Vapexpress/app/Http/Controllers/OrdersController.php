@@ -82,6 +82,7 @@ class OrdersController extends Controller
     public function store(Request $request)
     {
         //
+
     }
 
     /**
@@ -114,5 +115,9 @@ class OrdersController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function payment(Request $request)
+    {
+        dd($request->all());
     }
 }

@@ -20,7 +20,7 @@
                     <p><strong>Coste de Envío:</strong> ${{ number_format($shipping_cost, 2) }}</p>
                     <p class="font-bold"><strong>Precio Total:</strong> ${{ number_format($final_price, 2) }}</p>
                 </div>
-                <a href=""
+                <a href="{{ route('shopping_cart.checkout') }}"
                     class="bg-navbar hover:bg-navbar text-white font-bold py-2 px-4 rounded block text-center shadow-md transition duration-300">
                     Tramitar pedido
                 </a>

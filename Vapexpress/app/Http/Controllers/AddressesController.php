@@ -41,6 +41,7 @@ class AddressesController extends Controller
     {
         try {
             if (Auth::user()->rol != 'admin') {
+                session(['previous_url' => url()->previous()]);
                 return view('addresses.create');
             } else {
                 return view('client.profile')->with('error', 'El administrador no puede tener direcciones');
@@ -80,7 +81,11 @@ class AddressesController extends Controller
 
             $address->save();
             DB::commit();
-            return redirect()->route('addresses.index')->with('success', 'Dirección creada correctamente.');
+
+            $previousUrl = session('previous_url', route('addresses.index'));
+            // Eliminar la URL de la sesión
+            session()->forget('previous_url');
+            return redirect($previousUrl)->with('success', 'Dirección creada correctamente.');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'Failed to fetch addresses.');

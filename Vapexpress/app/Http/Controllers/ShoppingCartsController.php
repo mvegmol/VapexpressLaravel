@@ -11,13 +11,47 @@ use App\Models\ShoppingCart;
 class ShoppingCartsController extends Controller
 {
 
+
+    public function checkout(Request $request)
+    {
+        try {
+            // Si no estás logado redirige al login y si eres admin te redirige al home
+            if (!Auth::check()) {
+                return redirect()->route('login');
+            } else if (Auth::user()->role == 'admin') {
+                return redirect()->route('home');
+            }
+
+            DB::beginTransaction();
+            $client = Auth::user();
+            // Obtenemos todas las direcciones del cliente
+            $addresses = $client->address;
+            $shoppingCart = ShoppingCart::where('user_id', $client->id)->first();
+
+            // Comprobamos que el carrito de la compra no es nulo
+            if (!$shoppingCart || $shoppingCart->products()->count() === 0) {
+                return redirect()->route('shopping_cart')->with('error', 'El carrito de compra está vacío.');
+            }
+            session(['previous_url' => url()->previous()]);
+            DB::commit();
+            return view('client.checkout', compact('addresses', 'shoppingCart'));
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Error al tramitar el pedido.');
+        }
+    }
+
+
     public function showCart()
     {
         try {
-            // Si no estas logado redirige al login
+            // Si no estas logado redirige al login y si eres admin te redirige al home
             if (!Auth::check()) {
                 return redirect()->route('login');
+            } else if (Auth::user()->role == 'admin') {
+                return redirect()->route('home');
             }
+
             DB::beginTransaction();
             // Obtenemos el cliente
             $client = Auth::user();
@@ -55,9 +89,11 @@ class ShoppingCartsController extends Controller
     {
         try {
 
-            // Si no estass logado redirige al login
+            // Si no estass logado redirige al login y si eres admin te redirige al home
             if (!Auth::check()) {
                 return redirect()->route('login');
+            } else if (Auth::user()->role == 'admin') {
+                return redirect()->route('home');
             }
 
             DB::beginTransaction();
@@ -120,8 +156,11 @@ class ShoppingCartsController extends Controller
     public function updateQuantity(Request $request, $productId)
     {
         try {
+            // Si no estass logado redirige al login y si eres admin te redirige al home
             if (!Auth::check()) {
                 return redirect()->route('login');
+            } else if (Auth::user()->role == 'admin') {
+                return redirect()->route('home');
             }
 
             DB::beginTransaction();
@@ -166,8 +205,11 @@ class ShoppingCartsController extends Controller
     public function destroy($productId)
     {
         try {
+            // Si no estass logado redirige al login y si eres admin te redirige al home
             if (!Auth::check()) {
                 return redirect()->route('login');
+            } else if (Auth::user()->role == 'admin') {
+                return redirect()->route('home');
             }
 
             DB::beginTransaction();
