@@ -42,6 +42,8 @@ class ShoppingCartsController extends Controller
     }
 
 
+
+
     public function showCart()
     {
         try {

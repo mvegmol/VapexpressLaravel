@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\ShoppingCart;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use App\Models\Address;
 
 class OrdersController extends Controller
 {
@@ -81,8 +86,59 @@ class OrdersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
 
+
+
+            DB::beginTransaction();
+
+            // Retrieve the authenticated user's shopping cart
+            $shoppingCart = ShoppingCart::where('user_id', Auth::id())->first();
+
+            if (!$shoppingCart || $shoppingCart->products->isEmpty()) {
+                return redirect()->route('home')->with('error', 'El carrito de compra está vacío.');
+            }
+            $addressId_id = session('selected_address_id');
+
+            $address = Address::find($addressId_id);
+            $fullAddress = sprintf(
+                "%s %s %s, %s %s Tel: %s",
+                $address->full_name,
+                $address->direction,
+                $address->city,
+                $address->province,
+                $address->zip_code,
+                $address->contact_phone
+            );
+
+            // Create a new order
+            $order = Order::create([
+                'user_id' => Auth::id(),
+                'total_price' => $shoppingCart->total_price,
+                'address' => $fullAddress,
+                'status' => 'Pending',
+                'order_date' => Carbon::now(),
+            ]);
+
+            // Attach products to the order
+            foreach ($shoppingCart->products as $product) {
+                $order->products()->attach($product->id, [
+                    'quantity' => $product->pivot->quantity,
+                    'price' => $product->pivot->total_price,
+                ]);
+            }
+
+            // Clear the shopping cart
+            $shoppingCart->products()->detach();
+            $shoppingCart->delete();
+
+            DB::commit();
+
+            return redirect()->route('home')->with('success', 'Pedido realizado correctamente.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('home')->with('error', 'Error al procesar el pedido.');
+        }
     }
 
     /**
@@ -115,9 +171,5 @@ class OrdersController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-    public function payment(Request $request)
-    {
-        dd($request->all());
     }
 }

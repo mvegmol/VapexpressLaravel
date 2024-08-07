@@ -9,7 +9,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ShoppingCartsController;
-
+use App\Http\Controllers\StripeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -81,7 +81,9 @@ Route::middleware(['admin'])->group(function () {
     Route::get("/orders/{order}/show", [OrdersController::class, "show_admin"])->name("orders.admin.show");
     Route::put("/orders/{order}/status", [OrdersController::class, "updateStatus"])->name("orders.updateStatus");
 });
-
+Route::middleware(['auth'])->group(function () {
+    Route::post("/oder/store", [OrdersController::class, "store"])->name("order.store");
+});
 //Orders URL User
 
 //Products URL
@@ -139,3 +141,7 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::post('/payment', [OrdersController::class, 'payment'])->name('payment.store');
 });
+
+Route::get('/stripe', [StripeController::class, "index"])->name('stripe.index');
+Route::post('/stripe/checkout', [StripeController::class, "checkout"])->name('stripe.checkout');
+Route::get('/stripe/success', [StripeController::class, "success"])->name('stripe.success');
