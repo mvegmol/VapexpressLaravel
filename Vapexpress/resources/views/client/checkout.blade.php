@@ -48,7 +48,7 @@
                                     <strong>{{ $product->name }}</strong>
                                     <p class="text-sm text-gray-500">Cantidad: {{ $product->pivot->quantity }}</p>
                                     <p class="text-sm text-gray-500">Precio:
-                                        ${{ number_format($product->pivot->total_price, 2) }}</p>
+                                        {{ number_format($product->pivot->total_price, 2) }}€</p>
                                 </div>
                             </li>
                         @endforeach
@@ -61,14 +61,14 @@
                 <h2 class="text-2xl font-semibold text-navbar mb-4">Resumen del Pedido</h2>
                 <div class="text-gray-700 mb-4">
                     <p class="mb-2"><strong>Productos Totales:</strong> {{ $shoppingCart->quantity }}</p>
-                    <p class="mb-2"><strong>Subtotal:</strong> ${{ number_format($shoppingCart->total_price, 2) }}</p>
+                    <p class="mb-2"><strong>Subtotal:</strong> {{ number_format($shoppingCart->total_price, 2) }}€</p>
                     @php
                         $shipping_cost = $shoppingCart->total_price < 50 ? 5 : 0;
                         $final_price = $shoppingCart->total_price + $shipping_cost;
                     @endphp
                     <p class="mb-2"><strong>Coste de Envío:</strong>
-                        {{ $shipping_cost == 0 ? 'Gratis' : '$' . number_format($shipping_cost, 2) }}</p>
-                    <p class="font-bold mb-2"><strong>Precio Total:</strong> ${{ number_format($final_price, 2) }}</p>
+                        {{ $shipping_cost == 0 ? 'Gratis' : '€' . number_format($shipping_cost, 2) }} </p>
+                    <p class="font-bold mb-2"><strong>Precio Total:</strong> {{ number_format($final_price, 2) }}€</p>
                 </div>
                 <div class="flex justify-center">
                     <button type="submit" form="orderForm"

@@ -12,13 +12,13 @@
                 <h2 class="text-2xl font-semibold text-navbar mb-4">Resumen del Carrito</h2>
                 <div class="text-gray-700 mb-4">
                     <p><strong>Productos Totales:</strong> {{ $shoppingCart->quantity }}</p>
-                    <p><strong>Subtotal:</strong> ${{ number_format($shoppingCart->total_price, 2) }}</p>
+                    <p><strong>Subtotal:</strong> {{ number_format($shoppingCart->total_price, 2) }}€</p>
                     @php
                         $shipping_cost = $shoppingCart->total_price < 50 ? 5 : 0;
                         $final_price = $shoppingCart->total_price + $shipping_cost;
                     @endphp
-                    <p><strong>Coste de Envío:</strong> ${{ number_format($shipping_cost, 2) }}</p>
-                    <p class="font-bold"><strong>Precio Total:</strong> ${{ number_format($final_price, 2) }}</p>
+                    <p><strong>Coste de Envío:</strong> {{ number_format($shipping_cost, 2) }}€</p>
+                    <p class="font-bold"><strong>Precio Total:</strong> {{ number_format($final_price, 2) }}€</p>
                 </div>
                 <a href="{{ route('shopping_cart.checkout') }}"
                     class="bg-navbar hover:bg-navbar text-white font-bold py-2 px-4 rounded block text-center shadow-md transition duration-300">
@@ -63,9 +63,9 @@
                                             </select>
                                         </form>
                                         <p class="text-sm mt-2"><strong>Precio por Unidad:</strong>
-                                            ${{ number_format($product->price, 2) }}</p>
+                                            {{ number_format($product->price, 2) }}€</p>
                                         <p class="text-sm"><strong>Total:</strong>
-                                            ${{ number_format($product->pivot->total_price, 2) }}</p>
+                                            {{ number_format($product->pivot->total_price, 2) }}€</p>
                                     </div>
                                 </div>
                                 <div class="flex items-start">
