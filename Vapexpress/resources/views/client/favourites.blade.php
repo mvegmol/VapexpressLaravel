@@ -31,7 +31,7 @@
                         <div class="p-6">
                             <h3 class="text-lg font-bold mb-2 text-text_principal">{{ $product->name }}</h3>
                             <div class="flex justify-between items-center">
-                                <p class="text-gray-700">${{ $product->price }}</p>
+                                <p class="text-gray-700">{{ $product->price }}€</p>
                                 <form action="{{ route('shopping_cart.add') }}" method="POST">
                                     @method('POST')
                                     @csrf

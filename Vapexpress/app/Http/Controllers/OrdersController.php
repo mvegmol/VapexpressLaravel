@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Models\Address;
+use Illuminate\Support\Facades\Mail;
+
+use App\Mail\SendOrderConfirmationMail;
 
 class OrdersController extends Controller
 {
@@ -120,7 +123,6 @@ class OrdersController extends Controller
                 'order_date' => Carbon::now(),
             ]);
 
-            // Attach products to the order
             foreach ($shoppingCart->products as $product) {
                 $order->products()->attach($product->id, [
                     'quantity' => $product->pivot->quantity,
@@ -128,7 +130,9 @@ class OrdersController extends Controller
                 ]);
             }
 
-            // Clear the shopping cart
+            //Enviamos un correo de confirmacion al usuario de que ha tramitado correctamente el pedido
+            Mail::to(Auth::user()->email)->send(new SendOrderConfirmationMail($order, $shoppingCart->products, Auth::user()->email));
+
             $shoppingCart->products()->detach();
             $shoppingCart->delete();
 
