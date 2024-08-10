@@ -3,7 +3,7 @@
 @section('content')
     <div class="container mx-auto px-4 py-8">
         <section class="new-products mb-12">
-            <h2 class="text-2xl font-bold mb-6 text-text_principal">Novedades</h2>
+            <h2 class="text-2xl font-bold mb-6 text-text_principal">Mis Favoritos</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
                 @foreach ($products as $product)
                     <a href="{{ route('products.show_client', $product) }}">

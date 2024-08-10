@@ -141,16 +141,31 @@ class OrdersController extends Controller
      */
     public function show(Order $order)
     {
-        // Verificar que la orden pertenece al usuario autenticado
-        if ($order->user_id !== auth()->id()) {
-            abort(403, 'Unauthorized action.');
+        try {
+            if (!Auth::check()) {
+                return redirect()->route('login');
+            } else if (Auth::user()->role == 'admin') {
+                return redirect()->route('home');
+            }
+            // Cargar relaciones necesarias
+            $order->load('products.categories');
+
+            // Calcular el subtotal
+            $subtotal = $order->products->sum(function ($product) {
+                return $product->price * $product->pivot->quantity;
+            });
+
+            // Calcular el costo de envío
+            $shipping_cost = $subtotal < 50 ? 5 : 0;
+
+            // Calcular el total final
+            $total_price = $subtotal + $shipping_cost;
+
+            // Pasar los valores a la vista
+            return view('client.orders.show', compact('order', 'subtotal', 'shipping_cost', 'total_price'));
+        } catch (\Exception $e) {
+            return redirect()->route('home')->with('error', 'Error al procesar los pedidos.');
         }
-
-        // Cargar las relaciones necesarias
-        $order->load('products');
-
-        // Devolver una vista con los detalles de la orden
-        return view('client.orders.show', compact('order'));
     }
     /**
      * Display a listing of the resource.
@@ -158,6 +173,11 @@ class OrdersController extends Controller
     public function index(Request $request)
     {
         try {
+            if (!Auth::check()) {
+                return redirect()->route('login');
+            } else if (Auth::user()->role == 'admin') {
+                return redirect()->route('home');
+            }
             // Obtener el estado del filtro si está presente
             $status = $request->input('status');
 

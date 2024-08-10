@@ -62,7 +62,7 @@ class ShoppingCartsController extends Controller
 
             // Comprobamos que el carrito de la compra no es nulo
             if (!$shoppingCart) {
-                return back()->with('error', 'El carrito de compra no existe.');
+                return back()->with('error', 'El carrito de compra no contiene productos');
             }
 
             // Obtenemos los productos que contiene un carrito de la compra con categorías

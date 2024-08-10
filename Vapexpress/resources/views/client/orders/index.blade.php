@@ -51,7 +51,8 @@
                                 <p class="text-gray-900 whitespace-no-wrap">#{{ $order->id }}</p>
                             </td>
                             <td class="px-5 py-5 border-b border-gray-200 text-base">
-                                <p class="text-gray-900 whitespace-no-wrap">{{ $order->order_date }}</p>
+                                <p class="text-gray-900 whitespace-no-wrap">
+                                    {{ \Carbon\Carbon::parse($order->order_date)->format('d M Y \a \l\a\s h:i A') }}</p>
                             </td>
                             <td class="px-5 py-5 border-b border-gray-200 text-base">
                                 <p class="text-gray-900 whitespace-no-wrap">{{ number_format($order->total_price, 2) }}€</p>
