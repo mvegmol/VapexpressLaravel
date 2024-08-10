@@ -28,4 +28,29 @@ class Order extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getStatusAttribute($value)
+    {
+        $statuses = [
+            'pending' => 'pendiente',
+            'accepted' => 'aceptado',
+            'in progress' => 'en progreso',
+            'delivered' => 'entregado',
+            'cancelled' => 'cancelado',
+        ];
+
+        return $statuses[$value] ?? $value;
+    }
+
+    public function getStatusColorAttribute()
+    {
+        return match ($this->status) {
+            'pendiente' => 'yellow',
+            'aceptado' => 'blue',
+            'en progreso' => 'blue',
+            'entregado' => 'green',
+            'cancelado' => 'red',
+            default => 'gray',
+        };
+    }
 }

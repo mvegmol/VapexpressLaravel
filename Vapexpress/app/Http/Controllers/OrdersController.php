@@ -68,13 +68,7 @@ class OrdersController extends Controller
         return view("admin.orders.show", compact("order"));
     }
 
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -90,9 +84,6 @@ class OrdersController extends Controller
     public function store(Request $request)
     {
         try {
-
-
-
             DB::beginTransaction();
 
             // Retrieve the authenticated user's shopping cart
@@ -148,9 +139,51 @@ class OrdersController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Order $order)
     {
-        //
+        // Verificar que la orden pertenece al usuario autenticado
+        if ($order->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        // Cargar las relaciones necesarias
+        $order->load('products');
+
+        // Devolver una vista con los detalles de la orden
+        return view('client.orders.show', compact('order'));
+    }
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request)
+    {
+        try {
+            // Obtener el estado del filtro si está presente
+            $status = $request->input('status');
+
+            // Definir las traducciones inversas de los estados
+            $statuses = [
+                'pendiente' => 'pending',
+                'aceptado' => 'accepted',
+                'en progreso' => 'in progress',
+                'entregado' => 'delivered',
+                'cancelado' => 'cancelled',
+            ];
+
+            // Obtener todas los pedidos del usuario autenticado con filtro y paginación
+            $query = auth()->user()->orders()->with('products');
+
+            if ($status && isset($statuses[$status])) {
+                // Traducir el estado en español a inglés antes de la consulta
+                $query->where('status', $statuses[$status]);
+            }
+
+            $orders = $query->paginate(6);
+
+            return view('client.orders.index', compact('orders', 'status'));
+        } catch (\Exception $e) {
+            return redirect()->route('home')->with('error', 'Error al procesar los pedidos.');
+        }
     }
 
     /**

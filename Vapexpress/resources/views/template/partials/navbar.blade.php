@@ -44,7 +44,8 @@
                 <div class="flex items-center space-x-6 capitalize">
                     <a href="{{ route('home') }}" class="transition text-text_a hover:text-text_a-dark">Home</a>
                     <a href="" class="transition text-text_a hover:text-text_a-dark">Productos</a>
-                    <a href="{{ route('contact') }}" class="transition text-text_a hover:text-text_a-dark">Pedidos</a>
+                    <a href="{{ route('order.index') }}"
+                        class="transition text-text_a hover:text-text_a-dark">Pedidos</a>
                     <a href="" class="transition text-text_a hover:text-text_a-dark">Sobre Nosotros</a>
                     <a href="{{ route('contact') }}"
                         class="transition text-text_a hover:text-text_a-dark">Contactanos</a>

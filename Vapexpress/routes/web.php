@@ -137,6 +137,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/likes', [ProductsController::class, "favourites_products"])->name('client.likes');
 });
 
+//Ordres URL clientes
+Route::middleware(['auth'])->group(function () {
+    Route::get('/orders', [OrdersController::class, "index"])->name('order.index');
+    Route::get('/orders/{order}', [OrdersController::class, "show"])->name('order.show');
+});
 
 //Payment URL
 Route::middleware(['auth'])->group(function () {
