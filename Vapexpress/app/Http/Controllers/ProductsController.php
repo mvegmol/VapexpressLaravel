@@ -256,10 +256,17 @@ class ProductsController extends Controller
             DB::commit();
 
             return view('client.favourites', compact('products', 'favourite_products'));
-            
         } catch (\Exception $e) {
             DB::rollback();
             return redirect()->route('home')->with('error', 'Error al mostrar los productos favoritos.');
         }
+    }
+
+    public function show_client(Product  $product)
+    {
+        $categories = Category::all();
+        $suppliers = Supplier::all();
+
+        return view("client.product", compact("product", "categories", 'suppliers'));
     }
 }

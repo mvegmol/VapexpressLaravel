@@ -90,6 +90,7 @@ Route::middleware(['auth'])->group(function () {
 Route::get("/products", [ProductsController::class, "index"])->name("products.index");
 Route::get("/products/{product}", [ProductsController::class, "show"])->name("products.show");
 
+Route::get("/products/client/{product}", [ProductsController::class, "show_client"])->name("products.show_client");
 
 //Products URL (Admin)
 Route::middleware(['admin'])->group(function () {
