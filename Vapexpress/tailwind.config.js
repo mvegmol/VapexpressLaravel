@@ -10,6 +10,9 @@ export default {
         navbar: {
           DEFAULT: "#932F6D",
         },
+        hover: {
+          DEFAULT: "#7A2757",
+        },
         primary: {
           DEFAULT: "#DCCCFF",
         },
