@@ -262,11 +262,14 @@ class ProductsController extends Controller
         }
     }
 
-    public function show_client(Product  $product)
+    public function show_client(Product $product)
     {
         $categories = Category::all();
         $suppliers = Supplier::all();
 
-        return view("client.product", compact("product", "categories", 'suppliers'));
+        // Obtener los productos favoritos del usuario autenticado
+        $favourite_products = auth()->check() ? auth()->user()->favouriteProducts->pluck('id')->toArray() : [];
+
+        return view("client.product", compact("product", "categories", 'suppliers', 'favourite_products'));
     }
 }

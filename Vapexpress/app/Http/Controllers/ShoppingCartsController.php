@@ -90,8 +90,7 @@ class ShoppingCartsController extends Controller
     public function addCart(Request $request)
     {
         try {
-
-            // Si no estass logado redirige al login y si eres admin te redirige al home
+            // Si no estás logueado redirige al login y si eres admin te redirige al home
             if (!Auth::check()) {
                 return redirect()->route('login');
             } else if (Auth::user()->role == 'admin') {
@@ -99,16 +98,18 @@ class ShoppingCartsController extends Controller
             }
 
             DB::beginTransaction();
+
             $product_id = $request->product_id;
-            //Obteneemos el cliente
+            $quantity_to_add = intval($request->quantity);
+
+            //Obtenemos el cliente
             $client = Auth::user();
             //Obtenemos el producto
             $product = Product::find($product_id);
 
-            //Comprobamos si el producto tiene stock disponible 
-            if ($product->stock < 1) {
-                dd('no hay stock');
-                return back()->with('error', 'No hay stock disponible.');
+            //Comprobamos si el producto tiene suficiente stock disponible 
+            if ($product->stock < $quantity_to_add) {
+                return back()->with('error', 'No hay suficiente stock disponible.');
             } else {
                 //Comprobamos si el cliente tiene un carrito activo
                 $shoppingCart = ShoppingCart::where('user_id', $client->id)->first();
@@ -118,37 +119,43 @@ class ShoppingCartsController extends Controller
                     $shoppingCart->user_id = $client->id;
                     $shoppingCart->save();
                 }
-                //Comprobamos si el producto ya esta en el carrito
+
+                //Comprobamos si el producto ya está en el carrito
                 $products_cart = $shoppingCart->products()->where('product_id', $product_id)->first();
                 if ($products_cart != null) {
+                    // Actualizamos la cantidad y el precio total en el carrito
                     $shoppingCart->products()->updateExistingPivot($product_id, [
-                        'quantity' => $products_cart->pivot->quantity + 1,
-                        'total_price' => $products_cart->pivot->total_price + $product->price
+                        'quantity' => $products_cart->pivot->quantity + $quantity_to_add,
+                        'total_price' => $products_cart->pivot->total_price + ($product->price * $quantity_to_add)
                     ]);
                 } else {
-                    //Si no esta en el carrito lo añadimos
+                    // Si no está en el carrito lo añadimos
                     $shoppingCart->products()->attach($product_id, [
-                        'quantity' => 1,
-                        'total_price' => $product->price
+                        'quantity' => $quantity_to_add,
+                        'total_price' => $product->price * $quantity_to_add
                     ]);
                 }
 
-                //Actualizamos el precio total del carrito
-                $shoppingCart->total_price += $product->price;
-                //Actualizamos la cantidad de productos del carrito
-                $shoppingCart->quantity += 1;
-                //GUARDAMOS EN LA BBDD  
+                // Actualizamos el precio total del carrito
+                $shoppingCart->total_price += $product->price * $quantity_to_add;
+                // Actualizamos la cantidad de productos del carrito
+                $shoppingCart->quantity += $quantity_to_add;
+                // Guardamos el carrito en la base de datos
                 $shoppingCart->save();
 
-                //Actualizamos el stock del producto
-                $product->stock -= 1;
+                // Actualizamos el stock del producto
+
+                $cantidad_anterior = $product->stock;
+                $product->stock -= $quantity_to_add;
+                // dd($product->stock, $cantidad_anterior);
+
                 $product->save();
+
                 DB::commit();
                 return back()->with('success', 'Producto añadido al carrito.');
             }
         } catch (\Exception $e) {
             DB::rollBack();
-            dd($e);
             return back()->with('error', 'Error al añadir el producto al carrito.');
         }
     }

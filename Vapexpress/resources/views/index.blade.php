@@ -42,6 +42,7 @@
                                     <form action="{{ route('shopping_cart.add') }}" method="POST">
                                         @method('POST')
                                         @csrf
+                                        <input type="hidden" name="quantity" value="1">
                                         {{-- Enviamos el id del producto --}}
                                         <input type="hidden" name="product_id" value="{{ $product->id }}">
                                         <button type="submit">
@@ -98,6 +99,7 @@
                                     <form action="{{ route('shopping_cart.add') }}" method="POST">
                                         @method('POST')
                                         @csrf
+                                        <input type="hidden" name="quantity" value="1">
                                         {{-- Enviamos el id del producto --}}
                                         <input type="hidden" name="product_id" value="{{ $product->id }}">
                                         <button type="submit">

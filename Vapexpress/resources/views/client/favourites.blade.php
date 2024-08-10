@@ -16,6 +16,7 @@
                                     @method('POST')
                                     @csrf
                                     <input type="hidden" name="product_id" value="{{ $product->id }}">
+
                                     <button type="submit"
                                         class="text-2xl btn-heart text-gray-500 hover:text-red-700 transition duration-300 ease-in-out transform hover:scale-125 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                                         @if (!auth()->check()) onclick="event.preventDefault(); window.location='{{ route('login') }}';" @endif>
@@ -36,6 +37,7 @@
                                     <form action="{{ route('shopping_cart.add') }}" method="POST">
                                         @method('POST')
                                         @csrf
+                                        <input type="hidden" name="quantity" value="1">
                                         {{-- Enviamos el id del producto --}}
                                         <input type="hidden" name="product_id" value="{{ $product->id }}">
                                         <button type="submit">
