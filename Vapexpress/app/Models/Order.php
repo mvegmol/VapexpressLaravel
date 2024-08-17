@@ -45,7 +45,7 @@ class Order extends Model
     public function getStatusColorAttribute()
     {
         return match ($this->status) {
-            'pendiente' => 'yellow',
+            'pendiente' => 'green-400',
             'aceptado' => 'blue',
             'en progreso' => 'blue',
             'entregado' => 'green',

@@ -77,9 +77,9 @@ Route::middleware(['admin'])->group(function () {
 });
 //Orders URL Admin  
 Route::middleware(['admin'])->group(function () {
-    Route::get("/orders", [OrdersController::class, "index_admin"])->name("orders.admin.index");
-    Route::get("/orders/{order}/show", [OrdersController::class, "show_admin"])->name("orders.admin.show");
-    Route::put("/orders/{order}/status", [OrdersController::class, "updateStatus"])->name("orders.updateStatus");
+    Route::get("/orders/admin", [OrdersController::class, "index_admin"])->name("orders.admin.index");
+    Route::get("/orders/admin/{order}/show", [OrdersController::class, "show_admin"])->name("orders.admin.show");
+    Route::put("/orders/admin/{order}/status", [OrdersController::class, "updateStatus"])->name("orders.updateStatus");
 });
 Route::middleware(['auth'])->group(function () {
     Route::post("/oder/store", [OrdersController::class, "store"])->name("order.store");
@@ -151,3 +151,6 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/stripe', [StripeController::class, "index"])->name('stripe.index');
 Route::post('/stripe/checkout', [StripeController::class, "checkout"])->name('stripe.checkout');
 Route::get('/stripe/success', [StripeController::class, "success"])->name('stripe.success');
+
+//Product Search user
+Route::get('/search', [ProductsController::class, 'search'])->name('products.search');

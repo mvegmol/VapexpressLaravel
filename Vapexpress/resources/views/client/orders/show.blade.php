@@ -19,7 +19,7 @@
                         Datos del Pedido
                     </p>
 
-                    @foreach ($order->products as $product)
+                    @foreach ($products as $product)
                         <div
                             class="mt-4 md:mt-6 flex flex-col md:flex-row justify-start items-start md:items-center md:space-x-6 xl:space-x-8 w-full">
                             <div class="pb-4 md:pb-8 w-full md:w-40">
@@ -56,6 +56,8 @@
                     @endforeach
 
                 </div>
+                {{ $products->links('vendor.pagination.tailwind') }}
+
             </div>
 
             <!-- Sección de resumen y estado del pedido (1/3) -->

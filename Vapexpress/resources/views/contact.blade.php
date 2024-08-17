@@ -21,7 +21,7 @@
             <div class="mb-4">
                 <p class="flex items-center text-gray-700">
                     <i class="fas fa-phone w-6 h-6 mr-2"></i>
-                    +34 678867870
+                    +34 678 867 870
                 </p>
             </div>
             <div class="mb-4">

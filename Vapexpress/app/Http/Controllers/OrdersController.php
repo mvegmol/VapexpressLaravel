@@ -147,10 +147,14 @@ class OrdersController extends Controller
             } else if (Auth::user()->role == 'admin') {
                 return redirect()->route('home');
             }
-            // Cargar relaciones necesarias
+
+            // Cargar todas las relaciones necesarias para cálculos
             $order->load('products.categories');
 
-            // Calcular el subtotal
+            // Paginar solo para la visualización
+            $products = $order->products()->with('categories')->paginate(2);
+
+            // Calcular el subtotal usando todos los productos del pedido
             $subtotal = $order->products->sum(function ($product) {
                 return $product->price * $product->pivot->quantity;
             });
@@ -162,11 +166,13 @@ class OrdersController extends Controller
             $total_price = $subtotal + $shipping_cost;
 
             // Pasar los valores a la vista
-            return view('client.orders.show', compact('order', 'subtotal', 'shipping_cost', 'total_price'));
+            return view('client.orders.show', compact('order', 'products', 'subtotal', 'shipping_cost', 'total_price'));
         } catch (\Exception $e) {
             return redirect()->route('home')->with('error', 'Error al procesar los pedidos.');
         }
     }
+
+
     /**
      * Display a listing of the resource.
      */

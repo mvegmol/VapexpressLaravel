@@ -272,4 +272,85 @@ class ProductsController extends Controller
 
         return view("client.product", compact("product", "categories", 'suppliers', 'favourite_products'));
     }
+
+    public function client_index(Request $request)
+    {
+
+        return view("Products.index");
+    }
+
+
+    public function search(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            // Obtenemos los parámetros de búsqueda y filtros
+            $query = $request->input('search');
+            $typeFilter = $request->input('type');
+            $brandFilter = $request->input('brand');
+            $categoryFilter = $request->input('category');
+            $orderBy = $request->input('order_by', 'name_asc');
+
+            // Realizamos la consulta de productos
+            $products = Product::when($query, function ($queryBuilder) use ($query) {
+                return $queryBuilder->where('name', 'like', "%{$query}%")
+                    ->orWhere('id', 'like', "%{$query}%");
+            })
+                ->when($typeFilter, function ($queryBuilder) use ($typeFilter) {
+                    return $queryBuilder->whereHas('categories', function ($query) use ($typeFilter) {
+                        $query->where('categories.name', $typeFilter);
+                    });
+                })
+                ->when($brandFilter, function ($queryBuilder) use ($brandFilter) {
+                    return $queryBuilder->where('supplier_id', $brandFilter);
+                })
+                ->when($categoryFilter, function ($queryBuilder) use ($categoryFilter) {
+                    return $queryBuilder->whereHas('categories', function ($query) use ($categoryFilter) {
+                        $query->where('categories.name', $categoryFilter);
+                    });
+                });
+
+            // Aplicar el ordenamiento según la opción seleccionada
+            switch ($orderBy) {
+                case 'price_asc':
+                    $products = $products->orderBy('price', 'asc');
+                    break;
+                case 'price_desc':
+                    $products = $products->orderBy('price', 'desc');
+                    break;
+                case 'name_desc':
+                    $products = $products->orderBy('name', 'desc');
+                    break;
+                case 'newest':
+                    $products = $products->orderBy('created_at', 'desc');
+                    break;
+                case 'best_selling':
+                    $products = Product::bestSellings(); // Usar el método bestSellings
+                    break;
+                case 'name_asc':
+                default:
+                    $products = $products->orderBy('name', 'asc');
+                    break;
+            }
+
+            $products = $products->with(['categories', 'supplier'])->paginate(15);
+
+            if ($products->isEmpty()) {
+                DB::rollBack();
+                return redirect()->route("products.search")
+                    ->with("error", "No se han encontrado resultados para los filtros seleccionados.");
+            }
+
+            $suppliers = Supplier::all();
+            DB::commit();
+
+            $favourite_products = auth()->check() ? auth()->user()->favouriteProducts->pluck('id')->toArray() : [];
+
+            return view("Products.index", compact("products", "query", "typeFilter", "brandFilter", "categoryFilter", "orderBy", "suppliers", "favourite_products"));
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->route('home')->with('error', 'Error en la búsqueda de productos.');
+        }
+    }
 }

@@ -26,24 +26,44 @@
                 <span>
                     <i class="fas fa-bars"></i>
                 </span>
-                <span class="capitalize ml-2">Todas las categorías</span>
+                <span class="capitalize ml-2">Categorías Destacadas</span>
                 <div
-                    class="absolute w-full left-0 top-full bg-white rounded-lg shadow-md py-2 divide-y divide-gray-400 divide-dashed hidden  group-hover:block group-hover:opacity-100 transition ">
-                    <a href="" class="flex items-center px-6 py-3 text-black  hover:bg-gray-200 transition">
-                        <p class="ml-3 text-sm">Vaper</p>
+                    class="absolute w-full left-0 top-full bg-white rounded-lg shadow-md py-2 divide-y divide-gray-400 divide-dashed hidden group-hover:block group-hover:opacity-100 transition">
+
+                    <!-- Filtro por tipo de vape -->
+                    <a href="{{ route('products.search', ['type' => 'Vaper Recargable']) }}"
+                        class="flex items-center px-6 py-3 text-black hover:bg-gray-200 transition">
+                        <p class="ml-3 text-sm">Vapers Recargable</p>
                     </a>
-                    <a href="" class="flex items-center px-6 py-3 text-black hover:bg-gray-200 transition">
-                        <p class="ml-3 text-sm">Acesorios</p>
+                    <a href="{{ route('products.search', ['type' => 'Vaper Desechables']) }}"
+                        class="flex items-center px-6 py-3 text-black hover:bg-gray-200 transition">
+                        <p class="ml-3 text-sm">Vapers Desechable</p>
                     </a>
-                    <a href="" class="flex items-center px-6 py-3 text-black hover:bg-gray-200 transition">
-                        <p class="ml-3 text-sm">Todos los Productos</p>
+
+
+
+                    <!-- Filtro por categoría (Líquido, Vape, Accesorios) -->
+                    <a href="{{ route('products.search', ['category' => 'E-líquidos']) }}"
+                        class="flex items-center px-6 py-3 text-black hover:bg-gray-200 transition">
+                        <p class="ml-3 text-sm">Líquido</p>
                     </a>
+                    <a href="{{ route('products.search', ['category' => 'Vaper']) }}"
+                        class="flex items-center px-6 py-3 text-black hover:bg-gray-200 transition">
+                        <p class="ml-3 text-sm">Vapers</p>
+                    </a>
+                    <a href="{{ route('products.search', ['category' => 'Accesorios']) }}"
+                        class="flex items-center px-6 py-3 text-black hover:bg-gray-200 transition">
+                        <p class="ml-3 text-sm">Accesorios</p>
+                    </a>
+
+
                 </div>
             </div>
             <div class="flex items-center justify-between flex-grow pl-12">
                 <div class="flex items-center space-x-6 capitalize">
                     <a href="{{ route('home') }}" class="transition text-text_a hover:text-text_a-dark">Home</a>
-                    <a href="" class="transition text-text_a hover:text-text_a-dark">Productos</a>
+                    <a href="{{ route('products.search') }}"
+                        class="transition text-text_a hover:text-text_a-dark">Productos</a>
                     <a href="{{ route('order.index') }}"
                         class="transition text-text_a hover:text-text_a-dark">Pedidos</a>
                     <a href="" class="transition text-text_a hover:text-text_a-dark">Sobre Nosotros</a>
@@ -54,7 +74,8 @@
                     <div class="flex items-center space-x-6 capitalize">
                         <a href="{{ route('login') }}" class="transition text-text_a hover:text-text_a-dark">Inciar
                             Sesión</a>
-                        <a href="{{ route('register') }}" class="transition text-text_a hover:text-text_a-dark">Registro</a>
+                        <a href="{{ route('register') }}"
+                            class="transition text-text_a hover:text-text_a-dark">Registro</a>
                     </div>
                 @endguest
 

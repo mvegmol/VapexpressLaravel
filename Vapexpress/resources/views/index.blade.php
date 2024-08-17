@@ -60,9 +60,10 @@
             </div>
             <!-- Botón para ver más productos -->
             <div class="flex justify-center mt-8">
-                <a href="{{ route('products.index') }}"
-                    class="block text-center w-full bg-gradient-to-r from-navbar to-primary text-text_navbar py-3 text-lg font-bold rounded-lg shadow-lg hover:from-primary hover:to-navbar hover:shadow-xl transition duration-300 transform hover:scale-105">Ver
-                    más productos</a>
+                <a href="{{ route('products.search', ['order_by' => 'best_selling']) }}"
+                    class="block text-center w-full bg-gradient-to-r from-navbar to-primary text-text_navbar py-3 text-lg font-bold rounded-lg shadow-lg hover:from-primary hover:to-navbar hover:shadow-xl transition duration-300 transform hover:scale-105">
+                    Ver más productos
+                </a>
             </div>
         </section>
 
@@ -117,7 +118,7 @@
             </div>
             <!-- Botón para ver más productos -->
             <div class="flex justify-center mt-8">
-                <a href="{{ route('products.index') }}"
+                <a href="{{ route('products.search', ['order_by' => 'newest']) }}"
                     class="block text-center w-full bg-gradient-to-r from-navbar to-primary text-text_navbar py-3 text-lg font-bold rounded-lg shadow-lg hover:from-primary hover:to-navbar hover:shadow-xl transition duration-300 transform hover:scale-105">Ver
                     más novedades</a>
             </div>
@@ -127,51 +128,49 @@
         <section class="featured-categories mb-12">
             <h2 class="text-2xl font-bold mb-6 text-text_principal">Categorías Destacadas</h2>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- First large image -->
-                <div class="col-span-1 lg:col-span-3">
-                    <div
-                        class="bg-white shadow-md rounded-lg overflow-hidden transform transition duration-500 hover:scale-105">
-                        <div class="relative  flex items-center justify-center bg-gradient-to-r ">
-                            <img src="{{ asset('img/categorias/petizius.jpg') }}" alt="Imagen de de vaper sabor petizui"
-                                class="w-full h-full object-cover">
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Two smaller images in the center -->
                 <div class="col-span-1 lg:col-span-3 flex">
                     <div
                         class="w-1/2 bg-white shadow-md rounded-lg overflow-hidden transform transition duration-500 hover:scale-105 mr-4">
                         <div class="relative  flex items-center justify-center bg-gradient-to-r ">
-                            <img src="{{ asset('img/categorias/recargables.webp') }}" alt="Imagen de vapers recargables"
-                                class="w-full h-full object-cover">
+                            <a href="{{ route('products.search', ['type' => 'Vaper Recargable']) }}"><img
+                                    src="{{ asset('img/categorias/recargables.webp') }}" alt="Imagen de vapers recargables"
+                                    class="w-full h-full object-cover"></a>
                         </div>
                     </div>
                     <div
                         class="w-1/2 bg-white shadow-md rounded-lg overflow-hidden transform transition duration-500 hover:scale-105 ml-4">
                         <div class="relative  flex items-center justify-center bg-gradient-to-r  ">
-                            <img src="{{ asset('img/categorias/desechable.webp') }}" alt="Imagen de vapers desechables"
-                                class="w-full h-full object-cover">
+                            <a href="{{ route('products.search', ['type' => 'Vaper Desechables']) }}"><img
+                                    src="{{ asset('img/categorias/desechable.webp') }}" alt="Imagen de vapers desechables"
+                                    class="w-full h-full object-cover"></a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Second large image -->
                 <div class="col-span-1 lg:col-span-3 flex">
+
                     <div
                         class="w-1/2 bg-white shadow-md rounded-lg overflow-hidden transform transition duration-500 hover:scale-105 mr-4">
-                        <div class="relative  flex items-center justify-center bg-gradient-to-r ">
-                            <img src="{{ asset('img/categorias/e-liquidos.webp') }}" alt="Imagen de E-Liquidos"
-                                class="w-full h-full object-cover">
-                        </div>
+                        <a href="{{ route('products.search', ['category' => 'E-líquidos']) }}">
+                            <div class="relative  flex items-center justify-center bg-gradient-to-r ">
+                                <img src="{{ asset('img/categorias/e-liquidos.webp') }}" alt="Imagen de E-Liquidos"
+                                    class="w-full h-full object-cover">
+                            </div>
+                        </a>
                     </div>
+
+
                     <div
                         class="w-1/2 bg-white shadow-md rounded-lg overflow-hidden transform transition duration-500 hover:scale-105 ml-4">
-                        <div class="relative  flex items-center justify-center bg-gradient-to-r  ">
-                            <img src="{{ asset('img/categorias/kit.webp') }}" alt="Imagen de Kit de vapeo"
-                                class="w-full h-full object-cover">
-                        </div>
+                        <a href="{{ route('products.search', ['category' => 'Kits de Inicio']) }}">
+                            <div class="relative  flex items-center justify-center bg-gradient-to-r  ">
+                                <img src="{{ asset('img/categorias/kit.webp') }}" alt="Imagen de Kit de vapeo"
+                                    class="w-full h-full object-cover">
+                            </div>
+                        </a>
                     </div>
+
                 </div>
             </div>
         </section>

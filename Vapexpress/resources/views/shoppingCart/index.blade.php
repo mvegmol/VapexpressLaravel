@@ -17,7 +17,9 @@
                         $shipping_cost = $shoppingCart->total_price < 50 ? 5 : 0;
                         $final_price = $shoppingCart->total_price + $shipping_cost;
                     @endphp
-                    <p><strong>Coste de Envío:</strong> {{ number_format($shipping_cost, 2) }}€</p>
+                    <p><strong>Coste de Envío:</strong>
+                        {{ $shipping_cost > 0 ? number_format($shipping_cost, 2) . '€' : 'Gratis' }}
+                    </p>
                     <p class="font-bold"><strong>Precio Total:</strong> {{ number_format($final_price, 2) }}€</p>
                 </div>
                 <a href="{{ route('shopping_cart.checkout') }}"

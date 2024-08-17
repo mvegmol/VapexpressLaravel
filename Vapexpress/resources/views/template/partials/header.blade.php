@@ -1,4 +1,5 @@
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     @vite('resources/css/app.css', 'resources/css/app.scss')
 </head>
 {{-- header admin --}}
@@ -60,20 +61,23 @@
             <a href="{{ route('home') }}">
                 <img src="{{ asset('/img/logo.png') }}" alt="Logo de Vapexpress" class="w-48">
             </a>
+
+
             {{-- barra busqueda --}}
-
-
-            <div class="w-full max-w-xl relative flex">
+            <form action="{{ route('products.search') }}" method="GET" class="w-full max-w-xl relative flex">
                 <span class="absolute left-4 top-3 text-lg text-navbar">
-                    <i class="fas fa-search">
-                    </i>
+                    <i class="fas fa-search"></i>
                 </span>
-                <input type="text"
+
+                <input type="text" name="search"
                     class="w-full border border-navbar border-r-0 pl-12 py-3 pr-3 rounded-l-md focus:outline-none"
                     placeholder="Buscar productos">
-                <button
-                    class="bg-navbar border border-navbar text-text_navbar px-8 rounded-r-md hover:bg-transparent hover:text-navbar transition ">Buscar</button>
-            </div>
+
+                <button type="submit"
+                    class="bg-navbar border border-navbar text-text_navbar px-8 rounded-r-md hover:bg-transparent hover:text-navbar transition">
+                    Buscar
+                </button>
+            </form>
 
             <div class="flex items-center space-x-4">
 
@@ -81,7 +85,9 @@
                 <a href="{{ route('client.likes') }}"
                     class="text-center text-gray-600 hover:text-navbar transition relative">
                     <div class="text-2xl">
-                        <i class="far fa-heart text-navbar"></i>
+                        <!-- Verifica si la cantidad es mayor que 0 -->
+                        <i
+                            class="{{ Auth::check() && Auth::user()->favoriteQuantity() > 0 ? 'fa' : 'far' }} fa-heart text-navbar"></i>
                     </div>
 
                     <div class="text-xs leading-3">
@@ -89,7 +95,6 @@
                     </div>
                     <span
                         class="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-navbar text-xs text-white">{{ Auth::check() ? Auth::user()->favoriteQuantity() : 0 }}</span>
-
                 </a>
 
                 {{-- icono del carrito de la compra  --}}
@@ -112,19 +117,19 @@
 
                 {{-- icono de usuario --}}
                 <a href="@guest {{ route('register') }} @else {{ route('user.profile') }} @endguest"
-                    class="text-center text-gray-600 hover:text-navbar transition relative ">
+                    class="text-center text-gray-600 hover:text-navbar transition relative">
                     <div class="text-2xl">
-                        <i class="far fa-user text-navbar"></i>
+                        <!-- Verifica si el usuario está autenticado -->
+                        <i class="{{ Auth::check() ? 'fa' : 'far' }} fa-user text-navbar"></i>
                     </div>
                     @guest
                         <div class="text-xs leading-3">
                             Cuenta
                         </div>
                     @else
-                        <div class="text-xs leading-3 ">
+                        <div class="text-xs leading-3">
                             {{ Auth::user()->name }}
                         </div>
-
                     @endguest
                 </a>
 
@@ -133,7 +138,7 @@
                 {{-- icono de logout --}}
                 @guest
                 @else
-                    <a href="#" class="text-center text-gray-600 hover:text-navbar transition relative">
+                    <a href="#" class="text-center text-navbar hover:text-navbar transition relative">
                         <div class="text-2xl">
                             <i class="fas fa-sign-out-alt"></i>
                         </div>
