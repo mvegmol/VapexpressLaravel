@@ -25,7 +25,7 @@ class ShoppingCartsController extends Controller
             DB::beginTransaction();
             $client = Auth::user();
             // Obtenemos todas las direcciones del cliente
-            $addresses = $client->address;
+            $addresses = $client->address()->orderByDesc('is_default')->get();
             $shoppingCart = ShoppingCart::where('user_id', $client->id)->first();
 
             // Comprobamos que el carrito de la compra no es nulo
