@@ -154,3 +154,11 @@ Route::get('/stripe/success', [StripeController::class, "success"])->name('strip
 
 //Product Search user
 Route::get('/search', [ProductsController::class, 'search'])->name('products.search');
+
+//Sobre nosotros y info general de la web
+Route::get('/about', function () {
+    return view('info');
+})->name('about');
+Route::get('/legal', function () {
+    return view('legal');
+})->name('legal');

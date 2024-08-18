@@ -6,9 +6,9 @@
                 <h5 class="text-lg font-semibold mb-4 text-text_a-dark">Información Vapexpress</h5>
 
                 <ul class="space-y-2">
-                    <li><a class="transition text-text_a hover:text-text_a-dark">Sobre
+                    <li><a href="{{ route('about') }}" class="transition text-text_a hover:text-text_a-dark">Sobre
                             Nosotros</a></li>
-                    <li><a class="transition text-text_a hover:text-text_a-dark">Leyes
+                    <li><a href="{{ route('legal') }}" class="transition text-text_a hover:text-text_a-dark">Leyes
                             sobre el vapeo</a></li>
                 </ul>
             </div>
