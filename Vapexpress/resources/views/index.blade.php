@@ -5,6 +5,28 @@
 @endsection
 
 @section('content')
+    @if (!auth()->check() && !request()->cookie('age_verified'))
+        <div id="age-verification-modal"
+            class="fixed inset-0 bg-gray-900 bg-opacity-80 flex items-center justify-center z-50">
+            <div
+                class="bg-white rounded-lg shadow-xl p-8 max-w-lg mx-auto text-center transform transition-all duration-300 ease-in-out scale-100">
+                <h2 class="text-3xl font-extrabold mb-6 text-gray-900">Verificación de Edad</h2>
+
+                <p class="mb-5 text-gray-600 text-lg">Para proteger a los menores y cumplir con las regulaciones, debemos
+                    verificar que eres mayor de edad. No está permitida la venta a menores de 18 años.</p>
+                <p class="mb-8 text-gray-700 text-2xl font-bold">¿Tienes más de 18 años?</p>
+                <div class="flex justify-center gap-6">
+                    <button id="age-yes"
+                        class="bg-green-500 text-white px-8 py-3 rounded-md shadow-lg hover:bg-green-600 active:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transform transition duration-200 hover:-translate-y-1">Sí</button>
+                    <button id="age-no"
+                        class="bg-red-500 text-white px-8 py-3 rounded-md shadow-lg hover:bg-red-600 active:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 transform transition duration-200 hover:-translate-y-1">No</button>
+                </div>
+            </div>
+        </div>
+    @endif
+
+
+
     <div class="container mx-auto px-4 py-8">
 
         <!-- Sección de productos más vendidos -->
@@ -142,8 +164,8 @@
                         class="w-1/2 bg-white shadow-md rounded-lg overflow-hidden transform transition duration-500 hover:scale-105 ml-4">
                         <div class="relative  flex items-center justify-center bg-gradient-to-r  ">
                             <a href="{{ route('products.search', ['type' => 'Vaper Desechables']) }}"><img
-                                    src="{{ asset('img/categorias/desechable.webp') }}" alt="Imagen de vapers desechables"
-                                    class="w-full h-full object-cover"></a>
+                                    src="{{ asset('img/categorias/desechable.webp') }}"
+                                    alt="Imagen de vapers desechables" class="w-full h-full object-cover"></a>
                         </div>
                     </div>
                 </div>

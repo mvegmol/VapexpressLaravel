@@ -9,6 +9,7 @@
     {{-- Favicon  --}}
     <link rel="icon" type="image/x-icon" href="{{ asset('/img/favicon.ico') }}">
     @vite('resources/css/app.css', 'resources/css/app.scss')
+
 </head>
 
 <body class="min-h-screen flex flex-col  text-text_principal ">
@@ -20,6 +21,8 @@
     <div class="pt-36">
         @yield('carousel')
     </div>
+
+    <!-- Modal de Verificación de Edad -->
 
 
     <main class="flex-grow pt-12 px-8">
@@ -48,5 +51,33 @@
             }
             lastScrollTop = scrollTop;
         });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var ageYesButton = document.getElementById('age-yes');
+        var ageNoButton = document.getElementById('age-no');
+        var modal = document.getElementById('age-verification-modal');
+
+        if (modal) {
+            if (!document.cookie.split('; ').find(row => row.startsWith('age_verified=true'))) {
+                modal.style.display = 'flex';
+            } else {
+                modal.style.display = 'none';
+            }
+
+            if (ageYesButton) {
+                ageYesButton.addEventListener('click', function() {
+                    document.cookie = "age_verified=true; max-age=" + 60 * 60 * 24 * 30 + "; path=/";
+                    modal.style.display = 'none';
+                });
+            }
+
+            if (ageNoButton) {
+                ageNoButton.addEventListener('click', function() {
+                    window.location.href = 'https://www.google.com';
+                });
+            }
+        }
     });
 </script>

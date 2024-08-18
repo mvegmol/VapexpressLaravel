@@ -50,9 +50,8 @@
                 <div class="bg-white shadow-lg rounded-lg p-6 mb-6">
                     <h3 class="text-xl font-semibold text-gray-800">4. Uso de Cookies</h3>
                     <p class="mt-4 text-gray-600">
-                        Queremos informarte que nuestra web <b>no utiliza cookies</b>. Esto significa que no almacenamos ni
-                        rastreamos ninguna información relacionada con tu navegación en nuestro sitio. Nos enfocamos en
-                        ofrecerte una experiencia de compra directa y sin interrupciones.
+                        Nuestra web utiliza cookies para mejorar tu experiencia de navegación. Las cookies nos permiten
+                        personalizar tu visita, recordar tus preferencias y ofrecerte productos que podrían interesarte.
                     </p>
                 </div>
 
