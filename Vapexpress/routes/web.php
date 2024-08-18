@@ -26,12 +26,12 @@ Route::get("/home/admin", [ProductsController::class, "home_admin"])->name("inde
 Route::get("/home", function () {
     if (Auth::check()) {
         if (Auth::user()->role == 'admin') {
-            return view("index_admin");
+            return redirect()->route('index_admin');
         } else {
             return redirect()->route('home');
         }
     } else {
-        return redirect()->route('index_admin');
+        return redirect()->route('home');
     }
 })->middleware(["auth", "verified"]);
 
