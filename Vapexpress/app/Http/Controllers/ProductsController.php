@@ -353,4 +353,10 @@ class ProductsController extends Controller
             return redirect()->route('home')->with('error', 'Error en la búsqueda de productos.');
         }
     }
+
+
+    public function home_admin()
+    {
+        return view('index_admin');
+    }
 }

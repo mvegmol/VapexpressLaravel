@@ -75,10 +75,18 @@
                             <td class="px-4 py-2 border-b border-gray-300 whitespace-nowrap text-sm text-gray-900">
                                 {{ $product->stock }}</td>
                             <td class="px-4 py-2 border-b border-gray-300 whitespace-nowrap text-sm text-gray-900">
-                                @foreach ($product->categories as $category)
+                                @foreach ($product->categories->take(2) as $category)
                                     <span
-                                        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">{{ $category->name }}</span>
+                                        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+                                        {{ $category->name }}
+                                    </span>
                                 @endforeach
+                                @if ($product->categories->count() > 2)
+                                    <span
+                                        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+                                        y {{ $product->categories->count() - 2 }} más
+                                    </span>
+                                @endif
                             </td>
                             <td class="px-4 py-2 border-b border-gray-300 whitespace-nowrap text-center text-sm">
                                 <div class="inline-flex items-center">

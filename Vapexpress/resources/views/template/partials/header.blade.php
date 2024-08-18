@@ -8,7 +8,7 @@
         <div class="container flex items-center justify-between py-2">
 
             {{-- Logo --}}
-            <a href="#">
+            <a href="{{ route('index_admin') }}">
                 <img src="{{ asset('/img/logo.png') }}" alt="Logo de Vapexpress" class="w-48">
             </a>
 

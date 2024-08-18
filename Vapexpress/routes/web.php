@@ -22,7 +22,7 @@ use App\Http\Controllers\StripeController;
 */
 
 Route::get("/", [ProductsController::class, "home"])->name("home");
-
+Route::get("/home/admin", [ProductsController::class, "home_admin"])->name("index_admin");
 Route::get("/home", function () {
     if (Auth::check()) {
         if (Auth::user()->role == 'admin') {
@@ -31,7 +31,7 @@ Route::get("/home", function () {
             return redirect()->route('home');
         }
     } else {
-        return view("auth.dashboard");
+        return redirect()->route('index_admin');
     }
 })->middleware(["auth", "verified"]);
 
