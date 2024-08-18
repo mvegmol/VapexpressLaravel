@@ -29,9 +29,11 @@
         @yield('content')
     </main>
 
+
     <footer>
         @include('template.partials.footer')
     </footer>
+
 </body>
 
 </html>

@@ -9,6 +9,12 @@ use App\Models\OrderProduct;
 use App\Models\Supplier;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
+use App\Models\Order;
+use App\Models\User;
+use App\Models\Address;
+use App\Models\ShoppingCart;
+use App\Models\ShoppingCartProduct;
 
 class ProductsController extends Controller
 {
@@ -357,6 +363,58 @@ class ProductsController extends Controller
 
     public function home_admin()
     {
-        return view('index_admin');
+        // Total de usuarios registrados
+        $totalUsers = User::count();
+
+        // Usuarios registrados en los últimos 30 días
+        $userRegistrations = User::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))
+            ->where('created_at', '>=', Carbon::now()->subDays(30))
+            ->groupBy('date')
+            ->orderBy('date', 'asc')
+            ->get();
+
+        // Pedidos realizados en los últimos 30 días
+        $orderData = Order::select(DB::raw('DATE(order_date) as date'), DB::raw('count(*) as count'))
+            ->where('order_date', '>=', Carbon::now()->subDays(30))
+            ->groupBy('date')
+            ->orderBy('date', 'asc')
+            ->get();
+
+        // Productos más vendidos
+        $bestSellingProducts = Product::bestSellings()->take(10)->get();
+
+        // Proveedores más comprados
+        $topSuppliers = Supplier::select('suppliers.name', DB::raw('SUM(order_product.quantity) as total_quantity'))
+            ->join('products', 'suppliers.id', '=', 'products.supplier_id')
+            ->join('order_product', 'products.id', '=', 'order_product.product_id')
+            ->groupBy('suppliers.id', 'suppliers.name')
+            ->orderByDesc('total_quantity')
+            ->take(5)
+            ->get();
+
+        // Preparar datos para las gráficas
+        $userRegistrationDates = $userRegistrations->pluck('date');
+        $userRegistrationCounts = $userRegistrations->pluck('count');
+
+        $orderDates = $orderData->pluck('date');
+        $orderCounts = $orderData->pluck('count');
+
+        $bestSellingProductNames = $bestSellingProducts->pluck('name');
+        $bestSellingProductQuantities = $bestSellingProducts->pluck('total_orders');
+
+        $supplierNames = $topSuppliers->pluck('name');
+        $supplierQuantities = $topSuppliers->pluck('total_quantity');
+
+        return view('index_admin', compact(
+            'totalUsers',
+            'userRegistrationDates',
+            'userRegistrationCounts',
+            'orderDates',
+            'orderCounts',
+            'bestSellingProductNames',
+            'bestSellingProductQuantities',
+            'supplierNames',
+            'supplierQuantities'
+        ));
     }
 }
