@@ -15,7 +15,7 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <h2 class="text-2xl font-semibold text-navbar mb-4">Dirección de Envío</h2>
                     <div class="space-y-4 mb-4">
-                        <a href="{{ route('addresses.create') }}" class="text-blue-500 hover:text-navbar">
+                        <a href="{{ route('cart.addresses') }}" class="text-blue-500 hover:text-navbar">
                             + Agregar nueva dirección
                         </a>
                         @foreach ($addresses as $index => $address)

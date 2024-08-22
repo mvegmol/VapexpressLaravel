@@ -113,6 +113,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get("/shopping-cart/checkout", [ShoppingCartsController::class, "checkout"])->name("shopping_cart.checkout");
     Route::patch('/cart/update/{productId}', [ShoppingCartsController::class, 'updateQuantity'])->name('cart.update');
     Route::delete('/cart/{productId}', [ShoppingCartsController::class, 'destroy'])->name('cart.destroy');
+    Route::get('/cart/addresses', [AddressesController::class, 'createAddress'])->name('cart.addresses');
+    Route::post('/cart/address', [AddressesController::class, 'storeAddress'])->name('cart.address');
 });
 
 

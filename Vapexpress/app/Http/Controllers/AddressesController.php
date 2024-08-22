@@ -85,7 +85,7 @@ class AddressesController extends Controller
             $previousUrl = session('previous_url', route('addresses.index'));
             // Eliminar la URL de la sesión
             session()->forget('previous_url');
-            return redirect($previousUrl)->with('success', 'Dirección creada correctamente.');
+            return redirect()->route('addresses.index')->with('success', 'Dirección creada correctamente.');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'Failed to fetch addresses.');
@@ -199,6 +199,48 @@ class AddressesController extends Controller
             dd($e);
             DB::rollBack();
             return back()->with('error', 'No se ha podido cambiar la dirección correctamente.', $address->direction);
+        }
+    }
+
+    public function createAddress()
+    {
+        return view('shoppingCart.address-checkout');
+    }
+    public function storeAddress(Request $request)
+    {
+        $validatedData = $request->validate([
+            'full_name' => 'required|string|max:255',
+            'contact_phone' => 'required|string|max:9|min:9',
+            'direction' => 'required|string|max:255',
+            'city' => 'required|string|max:30',
+            'province' => 'required|string|max:30',
+            'zip_code' => 'required|string|max:5',
+        ]);
+        try {
+            DB::beginTransaction();
+            $address = new Address();
+            $address->user_id = Auth::user()->id;
+            $address->full_name = $validatedData['full_name'];
+            $address->contact_phone = $validatedData['contact_phone'];
+            $address->direction = $validatedData['direction'];
+            $address->city = $validatedData['city'];
+            $address->province = $validatedData['province'];
+            $address->zip_code = $validatedData['zip_code'];
+
+            if (Auth::user()->address->count() === 0) {
+                $address->is_default = true;
+            }
+
+            $address->save();
+            DB::commit();
+
+            $previousUrl = session('previous_url', route('addresses.index'));
+            // Eliminar la URL de la sesión
+            session()->forget('previous_url');
+            return redirect()->route('shopping_cart.checkout')->with('success', 'Dirección creada correctamente.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Failed to fetch addresses.');
         }
     }
 }

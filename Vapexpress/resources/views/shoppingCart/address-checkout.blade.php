@@ -13,7 +13,7 @@
 
         <div class="mt-4  sm:mx-auto sm:w-full sm:max-w-md">
             <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-                <form method="POST" action="{{ route('addresses.store') }}">
+                <form method="POST" action="{{ route('cart.address') }}">
                     @method('POST')
                     @csrf
                     <div>
