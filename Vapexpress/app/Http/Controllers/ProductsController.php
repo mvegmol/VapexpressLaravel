@@ -151,7 +151,7 @@ class ProductsController extends Controller
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
-            'url_image' => 'nullable|image|mimes:png|max:2048',
+            'url_image' => 'nullable|image|mimes:jpg|max:2048',
             'supplier_id' => 'required|exists:suppliers,id',
             'categories' => 'required|string',
         ]);
