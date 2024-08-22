@@ -8,7 +8,7 @@
     <title>Vapexpress</title>
     {{-- Favicon  --}}
     <link rel="icon" type="image/x-icon" href="{{ asset('/img/favicon.ico') }}">
-    @vite('resources/css/app.css', 'resources/css/app.scss')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 </head>
 

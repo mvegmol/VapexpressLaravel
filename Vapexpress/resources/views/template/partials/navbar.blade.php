@@ -1,5 +1,5 @@
 <head>
-    @vite('resources/css/app.css', 'resources/css/app.scss')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 {{-- barra de navegación --}}
