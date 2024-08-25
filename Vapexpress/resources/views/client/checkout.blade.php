@@ -1,7 +1,7 @@
 @extends('template.app')
 
 @section('content')
-    <div class="container mx-16 px-4 py-8">
+    <div class="container mx-auto px-4 py-8">
         <h1 class="text-3xl font-bold text-navbar mb-6">Tramitar Pedido</h1>
 
         @include('template.partials.alert')
@@ -57,7 +57,7 @@
             </div>
 
             <!-- Resumen del Pedido a la Derecha -->
-            <div class="w-full lg:w-1/3 bg-gray-50 p-6 rounded shadow-lg h-auto lg:h-fit">
+            <div class="w-full lg:w-1/3 bg-gray-50 p-6 rounded shadow-lg mt-6 lg:mt-0">
                 <h2 class="text-2xl font-semibold text-navbar mb-4">Resumen del Pedido</h2>
                 <div class="text-gray-700 mb-4">
                     <p class="mb-2"><strong>Productos Totales:</strong> {{ $shoppingCart->quantity }}</p>
@@ -96,7 +96,6 @@
             });
         });
 
-        // Escuchar el evento de cambio en los inputs de tipo radio para actualizar la dirección predeterminada
         document.querySelectorAll('.address-radio').forEach(function(radio) {
             radio.addEventListener('change', function() {
                 if (this.checked) {

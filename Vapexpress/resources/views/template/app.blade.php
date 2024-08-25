@@ -25,7 +25,7 @@
     <!-- Modal de Verificación de Edad -->
 
 
-    <main class="flex-grow pt-12 px-8">
+    <main class="flex-grow pt-34 px-8 ">
         @yield('content')
     </main>
 
@@ -37,6 +37,128 @@
 </body>
 
 </html>
+<style>
+    @media (max-width: 768px) {
+
+
+        #main-header {
+            height: auto;
+        }
+
+        main {
+            padding-top: calc(100px + 1rem);
+        }
+
+        #navbar {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            padding: 0;
+
+        }
+
+        .navbar-item {
+            padding: 0 5px;
+            font-size: 12px;
+        }
+
+        header a,
+        #navbar a {
+            padding: 5px 0;
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 1024px) {
+
+        #main-header {
+            height: auto;
+            padding: 0;
+        }
+
+        #main-header .container,
+        #navbar .container {
+            max-width: 100%;
+            padding: 0 15px;
+        }
+
+        main {
+            padding-top: calc(80px + 1rem);
+        }
+
+        #navbar {
+            padding: 0;
+            /* Eliminar padding lateral */
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            width: 100%;
+        }
+
+        .navbar-item {
+            padding: 0 8px;
+            font-size: 14px;
+        }
+
+        header a,
+        #navbar a {
+            padding: 8px 0;
+            font-size: 14px;
+        }
+
+        .carousel-inner img {
+            max-height: 300px;
+            object-fit: cover;
+        }
+
+        .container {
+            padding-left: 0;
+            padding-right: 0;
+            width: 100%;
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 840px) and (min-height: 1100px) and (max-height: 1200px) {
+
+        #main-header {
+            height: auto;
+            padding: 0;
+        }
+
+        main {
+            padding-top: calc(120px + 1rem);
+        }
+
+        #navbar {
+            padding: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            width: 100%;
+        }
+
+        .navbar-item {
+            padding: 0 10px;
+            font-size: 14px;
+        }
+
+        header a,
+        #navbar a {
+            padding: 8px 0;
+            font-size: 14px;
+        }
+
+        .container {
+            padding-left: 0;
+            padding-right: 0;
+            width: 100%;
+        }
+
+        .carousel-inner img {
+            max-height: 300px;
+            object-fit: cover;
+        }
+    }
+</style>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         let lastScrollTop = 0;
@@ -55,6 +177,7 @@
         });
     });
 </script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var ageYesButton = document.getElementById('age-yes');

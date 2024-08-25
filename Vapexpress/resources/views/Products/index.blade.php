@@ -1,14 +1,16 @@
 @extends('template.app')
 
 @section('content')
-    <div class="container mx-auto">
+    <div class="container mx-auto px-4 mt-6">
         {{-- alertas --}}
         @include('template.partials.alert')
+
         <!-- Filtros -->
         <h2 class="text-2xl font-bold mb-4">Filtros:</h2>
-        <div class="flex mb-6">
-            <form id="filtersForm" action="{{ route('products.search') }}" method="GET" class="w-full flex space-x-4">
-                <div class="flex-1">
+        <div class="flex flex-wrap mb-6 space-y-4 sm:space-y-0">
+            <form id="filtersForm" action="{{ route('products.search') }}" method="GET"
+                class="w-full flex flex-wrap space-x-0 sm:space-x-4">
+                <div class="w-full sm:flex-1 mb-4 sm:mb-0">
                     <select name="type" class="w-full border rounded-md p-2"
                         onchange="document.getElementById('filtersForm').submit();">
                         <option value="">Todos los tipos</option>
@@ -20,7 +22,7 @@
                         </option>
                     </select>
                 </div>
-                <div class="flex-1">
+                <div class="w-full sm:flex-1 mb-4 sm:mb-0">
                     <select name="brand" class="w-full border rounded-md p-2"
                         onchange="document.getElementById('filtersForm').submit();">
                         <option value="">Todas las marcas</option>
@@ -31,7 +33,7 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="flex-1">
+                <div class="w-full sm:flex-1 mb-4 sm:mb-0">
                     <select name="category" class="w-full border rounded-md p-2"
                         onchange="document.getElementById('filtersForm').submit();">
                         <option value="">Todas las categorías</option>
@@ -44,7 +46,7 @@
                         </option>
                     </select>
                 </div>
-                <div class="flex-1">
+                <div class="w-full sm:flex-1 mb-4 sm:mb-0">
                     <select name="order_by" class="w-full border rounded-md p-2"
                         onchange="document.getElementById('filtersForm').submit();">
                         <option value="name_asc" {{ $orderBy == 'name_asc' ? 'selected' : '' }}>Nombre: A-Z</option>
@@ -57,13 +59,12 @@
                         <option value="best_selling" {{ $orderBy == 'best_selling' ? 'selected' : '' }}>Más vendidos
                         </option>
                     </select>
-
                 </div>
             </form>
         </div>
         <br>
         <!-- Lista de Productos -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
             @foreach ($products as $product)
                 <a href="{{ route('products.show_client', $product) }}">
                     <div

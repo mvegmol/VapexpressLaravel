@@ -214,7 +214,7 @@ class ShoppingCartsController extends Controller
     public function destroy($productId)
     {
         try {
-            // Si no estass logado redirige al login y si eres admin te redirige al home
+            // Si no estás logado redirige al login y si eres admin te redirige al home
             if (!Auth::check()) {
                 return redirect()->route('login');
             } else if (Auth::user()->role == 'admin') {
@@ -247,6 +247,12 @@ class ShoppingCartsController extends Controller
                 $product->save();
             }
 
+            // Check if the shopping cart is now empty
+            if ($shoppingCart->products()->count() == 0) {
+                DB::commit();
+                return redirect()->route('home')->with('info', 'Tu carrito está vacío. ¡Explora más productos!');
+            }
+
             DB::commit();
             return back()->with('success', 'Producto eliminado del carrito.');
         } catch (\Exception $e) {
@@ -255,6 +261,7 @@ class ShoppingCartsController extends Controller
             return back()->with('error', 'Error al eliminar el producto del carrito.');
         }
     }
+
 
     /**
      * Display a listing of the resource.

@@ -4,19 +4,18 @@
     <div class="container mx-auto px-4 py-8">
         <section class="new-products mb-12">
             <h2 class="text-2xl font-bold mb-6 text-text_principal">Mis Productos Favoritos</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
                 @foreach ($products as $product)
                     <a href="{{ route('products.show_client', $product) }}">
                         <div
                             class="card bg-white shadow-md rounded-lg overflow-hidden transform transition duration-500 hover:scale-105">
-                            <div class="relative h-64 flex items-center justify-center bg-gradient-to-r ">
+                            <div class="relative h-48 sm:h-64 flex items-center justify-center bg-gradient-to-r ">
                                 <img src="{{ asset('img/productos/' . $product->url_image) }}"
                                     alt="Imagen de {{ $product->name }}" class="w-full h-full object-contain">
                                 <form action="{{ route('user.like') }}" method="POST" class="absolute top-2 left-2">
                                     @method('POST')
                                     @csrf
                                     <input type="hidden" name="product_id" value="{{ $product->id }}">
-
                                     <button type="submit"
                                         class="text-2xl btn-heart text-gray-500 hover:text-red-700 transition duration-300 ease-in-out transform hover:scale-125 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                                         @if (!auth()->check()) onclick="event.preventDefault(); window.location='{{ route('login') }}';" @endif>
@@ -30,7 +29,7 @@
                                 </form>
                             </div>
                             <div class="border-t border-gray-200"></div>
-                            <div class="p-6">
+                            <div class="p-4 sm:p-6">
                                 <h3 class="text-lg font-bold mb-2 text-text_principal">{{ $product->name }}</h3>
                                 <div class="flex justify-between items-center">
                                     <p class="text-gray-700">{{ $product->price }}€</p>
@@ -38,7 +37,6 @@
                                         @method('POST')
                                         @csrf
                                         <input type="hidden" name="quantity" value="1">
-                                        {{-- Enviamos el id del producto --}}
                                         <input type="hidden" name="product_id" value="{{ $product->id }}">
                                         <button type="submit">
                                             <i
