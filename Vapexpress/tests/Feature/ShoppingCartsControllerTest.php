@@ -118,21 +118,51 @@ class ShoppingCartsControllerTest extends TestCase
     }
 
     /** @test */
-    public function user_can_remove_product_from_cart()
+    public function test_user_can_remove_one_product_from_cart()
     {
+        // Crear un usuario y autenticarlo
         $user = User::factory()->create();
         $this->actingAs($user);
-        // Crear un producto y agregarlo al carrito de compras
-        $product = Product::factory()->create(['stock' => 10]);
+
+        // Crear dos productos y agregarlos al carrito de compras
+        $product1 = Product::factory()->create(['stock' => 10]);
+        $product2 = Product::factory()->create(['stock' => 8]);
         $cart = ShoppingCart::create(['user_id' => $user->id]);
-        $cart->products()->attach($product->id, ['quantity' => 2, 'total_price' => $product->price * 2]);
-        // Realizar la petición para eliminar el producto del carrito
-        $response = $this->delete(route('cart.destroy', $product->id));
-        // Comprueba que el usuario es redirigido a la página principal
+        $cart->products()->attach($product1->id, ['quantity' => 2, 'total_price' => $product1->price * 2]);
+        $cart->products()->attach($product2->id, ['quantity' => 1, 'total_price' => $product2->price]);
+
+        // Verificar que ambos productos están en el carrito antes de la eliminación
+        $this->assertTrue($cart->products->contains($product1));
+        $this->assertTrue($cart->products->contains($product2));
+
+        // Realizar la petición para eliminar el primer producto del carrito
+        $response = $this->delete(route('cart.destroy', $product1->id));
+
+        // Verificar que el usuario es redirigido correctamente después de la eliminación
         $response->assertRedirect();
+
+        // Verificar que la sesión contiene el mensaje de éxito correcto
         $response->assertSessionHas('success', 'Producto eliminado del carrito.');
-        // Comprueba que el producto se ha eliminado del carrito de compras
-        $cart = ShoppingCart::where('user_id', $user->id)->first();
-        $this->assertFalse($cart->products->contains($product));
+
+        // Refrescar la instancia del carrito para obtener los datos más recientes
+        $cart->refresh();
+
+        // Verificar que el primer producto ha sido eliminado del carrito de compras
+        $this->assertFalse($cart->products->contains($product1));
+
+        // Verificar que el segundo producto aún está en el carrito
+        $this->assertTrue($cart->products->contains($product2));
+
+        // Verificar que el stock del primer producto se ha actualizado correctamente
+        $product1->refresh();
+        $this->assertEquals(12, $product1->stock);  // El stock original era 10, más 2 unidades devueltas
+
+        // Verificar que el stock del segundo producto no ha cambiado
+        $product2->refresh();
+        $this->assertEquals(8, $product2->stock);  // El stock no debe cambiar para el producto no eliminado
+
+        // Verificar que el carrito no está vacío y no se redirige a la página de inicio
+        $this->assertGreaterThan(0, $cart->products()->count());
+        $response->assertRedirect(route('home'));
     }
 }

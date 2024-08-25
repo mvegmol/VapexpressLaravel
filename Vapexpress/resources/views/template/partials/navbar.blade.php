@@ -64,7 +64,7 @@
 
             <!-- Links de navegación y categorías en móviles -->
             {{-- lg:flex lg:items-center lg:justify-between lg:flex-grow lg:pl-12  --}}
-            <div class="w-full lg:flex lg:items-center lg:justify-between lg:flex-grow lg:w-auto hidden"
+            <div class="w-full lg:pl-12 lg:flex lg:items-center lg:justify-between lg:flex-grow lg:w-auto hidden"
                 id="navbar-content">
                 <div class="flex flex-col lg:flex-row lg:items-center space-y-2 lg:space-y-0 lg:space-x-6 capitalize">
                     <a href="{{ route('home') }}" class="transition text-text_a hover:text-text_a-dark">Home</a>

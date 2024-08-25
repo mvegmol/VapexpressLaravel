@@ -250,7 +250,7 @@ class ShoppingCartsController extends Controller
             // Check if the shopping cart is now empty
             if ($shoppingCart->products()->count() == 0) {
                 DB::commit();
-                return redirect()->route('home')->with('info', 'Tu carrito está vacío. ¡Explora más productos!');
+                return redirect()->route('home')->with('info', 'Producto eliminado del carrito.');
             }
 
             DB::commit();
