@@ -66,7 +66,7 @@ class ShoppingCartsController extends Controller
             }
 
             // Obtenemos los productos que contiene un carrito de la compra con categorías
-            $products = $shoppingCart->products()->with('categories')->get();
+            $products = $shoppingCart->products()->with('categories')->paginate(4);
 
             // Comprobamos que tiene algún producto el carrito
             if ($products->isEmpty()) {
