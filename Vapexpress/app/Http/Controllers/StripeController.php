@@ -11,7 +11,7 @@ class StripeController extends Controller
     //
     public function index()
     {
-        return view('stripe.index');
+        return redirect()->route('shopping_cart.checkout');
     }
 
     public function checkout(Request $request)
