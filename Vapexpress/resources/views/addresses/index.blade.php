@@ -53,5 +53,8 @@
                 </div>
             @endforeach
         </div>
+        <div class="w-full mt-4 flex justify-end">
+            {{ $addresses->links('vendor.pagination.tailwind') }}
+        </div>
     </div>
 @endsection

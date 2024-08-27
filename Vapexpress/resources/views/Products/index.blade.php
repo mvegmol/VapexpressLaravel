@@ -109,7 +109,7 @@
         </div>
 
         <!-- Paginación -->
-        <div class="mt-6 ">
+        <div class="w-full mt-6 flex justify-end">
             {{ $products->links() }}
         </div>
     </div>

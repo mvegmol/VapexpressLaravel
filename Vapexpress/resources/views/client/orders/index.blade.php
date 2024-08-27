@@ -97,7 +97,7 @@
         </div>
 
         <!-- Paginación -->
-        <div class="mt-4 flex justify-center md:justify-end">
+        <div class="w-full mt-4 flex justify-end md:justify-end">
             {{ $orders->appends(['status' => request('status')])->links('vendor.pagination.tailwind') }}
         </div>
 
