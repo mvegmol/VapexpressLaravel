@@ -25,7 +25,7 @@ class CategoriesSeeder extends Seeder
             ['name' => 'Mods y Baterías', 'description' => 'Dispositivos avanzados y baterías de alta calidad para vapeadores experimentados.'],
             ['name' => 'Atomizadores y Tanques', 'description' => 'Componentes de alta calidad para mejorar la experiencia de vapeo y personalización.'],
             ['name' => 'Cargadores y Estuches', 'description' => 'Soluciones de carga y almacenamiento para mantener tus dispositivos seguros y listos para usar.'],
-            ['name' => 'Resistencias y Coils', 'description' => 'Variedad de resistencias y coils para un rendimiento óptimo de tus dispositivos de vapeo.'],
+            ['name' => 'Resistencias', 'description' => 'Variedad de resistencias y coils para un rendimiento óptimo de tus dispositivos de vapeo.'],
             ['name' => 'Partes de Repuesto', 'description' => 'Piezas de repuesto para mantener tus dispositivos en perfectas condiciones.'],
         ];
 
