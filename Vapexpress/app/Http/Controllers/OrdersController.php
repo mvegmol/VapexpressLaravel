@@ -44,9 +44,10 @@ class OrdersController extends Controller
             ->paginate(10);
 
         if ($orders->isEmpty()) {
-            return redirect()->route("orders.admin.index")
+            return view("admin.orders.index", compact("orders", "query", "sortField", "sortDirection"))
                 ->with("error", "No se han encontrado resultados de la consulta realizada: $query");
         }
+
 
         return view("admin.orders.index", compact("orders", "query", "sortField", "sortDirection"));
     }

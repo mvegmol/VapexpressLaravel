@@ -14,7 +14,7 @@
                     <h2 class="text-2xl font-semibold mb-4">Información del Pedido</h2>
                     <p><strong>Fecha del Pedido:</strong> {{ $order->order_date }}</p>
                     <p><strong>Estado:</strong> {{ ucfirst($order->status) }}</p>
-                    <p><strong>Precio Total:</strong> ${{ $order->total_price }}</p>
+                    <p><strong>Precio Total:</strong> {{ $order->total_price }}€</p>
                     <p><strong>Dirección:</strong> {{ $order->address }}</p>
                 </div>
 
@@ -37,7 +37,7 @@
                                 <h3 class="text-xl font-bold mb-2">{{ $product->name }}</h3>
                                 <p class="text-gray-700 mb-2"><strong>Cantidad:</strong> {{ $product->pivot->quantity }}
                                 </p>
-                                <p class="text-gray-700 mb-2"><strong>Precio:</strong> ${{ $product->pivot->price }}</p>
+                                <p class="text-gray-700 mb-2"><strong>Precio:</strong> {{ $product->pivot->price }}€</p>
                                 <p class="text-gray-700 mb-2">
                                     <strong>Categorías:</strong>
                                     <br>

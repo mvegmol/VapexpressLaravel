@@ -52,7 +52,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($orders as $index => $order)
+                    @forelse ($orders as $index => $order)
                         <tr class="{{ $index % 2 == 0 ? 'bg-white' : 'bg-gray-100' }}">
                             <td
                                 class="px-4 py-2 border-b text-center border-gray-300 whitespace-nowrap text-sm text-gray-900">
@@ -77,23 +77,29 @@
                                     @method('PUT')
                                     <select name="status" onchange="this.form.submit()"
                                         class="border border-gray-300 p-2 rounded">
-                                        @foreach (['pending', 'accepted', 'in progress', 'delivered', 'cancelled'] as $status)
-                                            <option value="{{ $status }}"
-                                                {{ $order->status == $status ? 'selected' : '' }}>
-                                                {{ ucfirst($status) }}
+                                        @foreach (['pending' => 'pendiente', 'accepted' => 'aceptado', 'in progress' => 'en progreso', 'delivered' => 'entregado', 'cancelled' => 'cancelado'] as $key => $value)
+                                            <option value="{{ $key }}"
+                                                {{ $order->getRawOriginal('status') === $key ? 'selected' : '' }}>
+                                                {{ ucfirst($value) }}
                                             </option>
                                         @endforeach
                                     </select>
                                 </form>
                             </td>
-                            <td class="px-4 py-2 border-b  border-gray-300 whitespace-nowrap text-center text-sm">
+                            <td class="px-4 py-2 border-b border-gray-300 whitespace-nowrap text-center text-sm">
                                 <div class="inline-flex items-center">
                                     <a href="{{ route('orders.admin.show', $order) }}"
                                         class="text-blue-600 hover:text-blue-900 text-xl"><i class="fas fa-eye"></i></a>
                                 </div>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="7" class="px-4 py-4 text-center text-sm text-gray-600">
+                                No hay pedidos disponibles actualmente.
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
