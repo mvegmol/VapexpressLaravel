@@ -6,7 +6,7 @@ Para instalar el proyecto en tu entorno local, sigue los siguientes pasos:
    - Clona o descarga el repositorio.
 
 2. **Acceder al directorio del proyecto**
-   - Navega a la carpeta principal del proyecto, usualmente llamada `Vapexpress`.
+   - Navega a la carpeta principal del proyecto, llamada `Vapexpress`.
 
 3. **Configurar el entorno**
    - Renombra el archivo `.env.example` a `.env`.
